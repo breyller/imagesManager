@@ -6,7 +6,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      * Creates new form JanelaPrincipal
      */
     public JanelaPrincipal() {
-        initComponents();
+        
     }
 
     /**
