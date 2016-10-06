@@ -6,17 +6,10 @@ public class DbManipulate implements IPersistencia{
     
     private Connection conn;
     
-    public DbManipulate(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3059/imagesManager", "root", "root");
-            System.out.println("Conectado com sucesso.");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Erro de class not found: " + ex);
-        } catch (SQLException ex) {
-            System.out.println("Erro de conexao mysql: " + ex);
-        }
-        
+    public DbManipulate() throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3059/imagesManager", "root", "root");
+        System.out.println("Conectado com sucesso.");
     }
     
     public Image getImageById(int id){
@@ -32,5 +25,13 @@ public class DbManipulate implements IPersistencia{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    public static void main(String[] args) {
+        try{
+            DbManipulate a;
+            a = new DbManipulate();
+        }catch(Exception e){
+            System.out.println("Erro ao instanciar: " + e);
+        }
+    }
     
 }
