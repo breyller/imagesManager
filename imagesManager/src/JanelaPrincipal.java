@@ -1,12 +1,52 @@
-import javax.swing.JFrame;
-
-public class JanelaPrincipal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form JanelaPrincipal
-     */
+import java.awt.Color;
+import javax.swing.*;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+        
+        
+public class JanelaPrincipal extends JFrame {
+    
+    //Componentes
+    JButton cmd_sair;
+    
+    //Eventos
+    ActionListener cmd_sair_click;
+    
     public JanelaPrincipal() {
         
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        
+        //Jpanel
+        JPanel painel = new JPanel();
+        painel.setPreferredSize(new Dimension(600,400));
+        add(painel);
+        pack();
+        setLocationRelativeTo(null);
+        painel.setBackground(Color.BLUE);
+        
+        
+        //Evento
+        cmd_sair_click = new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+            }
+        
+        };
+        
+        //botao
+        cmd_sair = new JButton("Sair");
+        
+        painel.add(cmd_sair);
+        cmd_sair.addActionListener(cmd_sair_click);
+        setVisible(true);
+        
+    
+        
+        setVisible(true);
     }
 
     /**
@@ -43,4 +83,5 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
 }
