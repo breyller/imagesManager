@@ -1,9 +1,9 @@
 public class ImagesManager{
     
-    private static MainPanel interf;
+    private static JanelaPrincipal interf;
         
     public static void main(String[] args){
-        interf = new MainPanel();
+        interf = new JanelaPrincipal();
 	interf.setVisible(true);
 
 //        try{
