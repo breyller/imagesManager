@@ -69,8 +69,4 @@ public class Image {
     public int getId(){
         return this.id;
     }
-    
-    public static void main(String[] args){
-        System.out.println("Hello World");
-    }
 }

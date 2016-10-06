@@ -3,11 +3,11 @@ public class Description {
     private String description;
     
     public Description(){
-        this.setDescription(null);
+        this.description = null;
     }
     
     public Description(String desc){
-        this.setDescription(desc);
+        this.description = desc;
     }
     
     public String getDescription(){
@@ -21,8 +21,7 @@ public class Description {
         
         if(this.description != "")
             result = true;
-                
+                            
         return result;
     }
-    
 }
