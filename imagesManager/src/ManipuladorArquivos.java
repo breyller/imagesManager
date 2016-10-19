@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ManipuladorArquivos 
@@ -156,5 +157,11 @@ public class ManipuladorArquivos
     public void deleteImage (String nomeArquivo) throws IOException
     {
         
+    }
+    
+    public void listContent ()
+    {
+        File f = new File("C:\\Test\\");
+        ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
     }
 }
