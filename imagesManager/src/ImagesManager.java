@@ -1,9 +1,9 @@
 public class ImagesManager{
     
-    private static JanelaPrincipal interf;
+    private static NovaInterface interf;
         
     public static void main(String[] args){
-        interf = new JanelaPrincipal();
+        interf = new NovaInterface();
 	interf.setVisible(true);
 
 //        try{
