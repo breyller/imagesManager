@@ -20,7 +20,7 @@ public class Image {
         this.setId(id);
     }
     
-    private boolean setPath(String path){
+    public boolean setPath(String path){
         boolean result = false;
         
         this.path = path;
@@ -30,7 +30,7 @@ public class Image {
         return result;
     }
     
-    private boolean setHash(String hash){
+    public boolean setHash(String hash){
         boolean result = false;
         
         this.hash = hash;
@@ -40,11 +40,31 @@ public class Image {
         return result;
     }
     
-    private boolean setId(int id){
+    public boolean setId(int id){
         boolean result = false;
         
         this.id = id;
         if(this.id != 0)
+            result = true;
+        
+        return result;
+    }
+    
+    public boolean setTitle(String title){
+        boolean result = false;
+        
+        this.title = new Title(title);
+        if(this.getTitle() != null)
+            result = true;
+        
+        return result;
+    }
+    
+    public boolean setDescription(String desc){
+        boolean result = false;
+        
+        this.desc = new Description(desc);
+        if(this.getDescription() != null)
             result = true;
         
         return result;
