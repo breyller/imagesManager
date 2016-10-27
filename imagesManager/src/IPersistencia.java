@@ -13,7 +13,7 @@ public interface IPersistencia {
     ArrayList<Image> getImageByAlbumId(int idAlbum);
     Album getAlbumById(int id);
     ArrayList<Album> getAlbumByTitle(String title);
-    ArrayList<Image> getAlbumByDescription(String description);
+    ArrayList<Album> getAlbumByDescription(String description);
     boolean setAlbum(Album alb);
     boolean setImage(Image img);
     boolean setImageOnAlbum(Image img, int idAlbum);
