@@ -380,15 +380,89 @@ public class DbManipulate implements IPersistencia{
     }
 
     public boolean setAlbum(Album alb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+                
+        try {
+            conn = DbConnector.getConnection();
+            stmt = conn.prepareStatement("INSERT INTO album(title, description) VALUES (?,?)");
+            stmt.setString(1, alb.getTitle());
+            stmt.setString(2, alb.getDescription());
+            stmt.executeUpdate();
+            result = true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
     }
 
     public boolean setImage(Image img) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+                
+        try {
+            conn = DbConnector.getConnection();
+            stmt = conn.prepareStatement("INSERT INTO fotos(title, description, path, hash) VALUES (?,?,?,?)");
+            stmt.setString(1, img.getTitle());
+            stmt.setString(2, img.getDescription());
+            stmt.setString(3, img.getPath());
+            stmt.setString(4, img.getHash());
+            stmt.executeUpdate();
+            result = true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
     }
 
-    public boolean setImageOnAlbum(Image img, int idAlbum) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean setImageOnAlbum(int idImage, int idAlbum) {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+                
+        try {
+            conn = DbConnector.getConnection();
+            //@todo: 
+            //fazer uma consulta para definir o order da imagem no primeiro momento.
+            //criar funcao de ordenacao.
+            //remover a linha abaixo.
+            int order = 1;
+            stmt = conn.prepareStatement("INSERT INTO album_fotos(id_album, id_foto, order) VALUES (?,?,?)");
+            stmt.setInt(1, idAlbum);
+            stmt.setInt(2, idImage);
+            stmt.setInt(3, order);
+            stmt.executeUpdate();
+            result = true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
     }
 
     public boolean updateAlbum(Album alb) {
@@ -399,15 +473,15 @@ public class DbManipulate implements IPersistencia{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean deleteImage(Image img) {
+    public boolean deleteImage(int idImage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean deleteAlbum(Album alb) {
+    public boolean deleteAlbum(int idAlbum) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public boolean setImageToAlbum(Image img, Album alb) {
+    
+    public boolean deleteImageFromAlbum(Album alb) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
