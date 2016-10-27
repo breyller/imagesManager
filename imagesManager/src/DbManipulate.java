@@ -22,12 +22,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image();
-                img.setId(rs.getInt("idFotos"));
-                img.setTitle(rs.getString("title"));
-                img.setDescription(rs.getString("description"));
-                img.setPath(rs.getString("path"));
-                img.setHash(rs.getString("hash"));
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,12 +51,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image();
-                img.setId(rs.getInt("idFotos"));
-                img.setTitle(rs.getString("title"));
-                img.setDescription(rs.getString("description"));
-                img.setPath(rs.getString("path"));
-                img.setHash(rs.getString("hash"));
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,13 +82,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image();
-                img.setId(rs.getInt("idFotos"));
-                img.setTitle(rs.getString("title"));
-                img.setDescription(rs.getString("description"));
-                img.setPath(rs.getString("path"));
-                img.setHash(rs.getString("hash"));
-                
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
                 images.add(img);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -113,6 +97,317 @@ public class DbManipulate implements IPersistencia{
         
         return images;
     }
-    
-    
+
+    public Image getImageById(int id, int idAlbum) {
+        Image img = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT f.* FROM fotos f JOIN album_fotos af ON f.id_foto = af.idFotos JOIN album a ON af.id_album = a.idAlbum WHERE f.idFotos = ? AND a.idAlbum = ?");
+            stmt.setInt(1, id);
+            stmt.setInt(2, idAlbum);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return img;
+    }
+
+    public Image getImageByHash(String hash, int idAlbum) {
+        Image img = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT f.* FROM fotos f JOIN album_fotos af ON f.id_foto = af.idFotos JOIN album a ON af.id_album = a.idAlbum WHERE f.hash = ? AND a.idAlbum = ?");
+            stmt.setString(1, hash);
+            stmt.setInt(2, idAlbum);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return img;
+    }
+
+    public ArrayList<Image> getImageByTitle(String title, int idAlbum) {
+        Image img = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Image> images = new ArrayList<>();
+        
+
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT f.* FROM fotos f JOIN album_fotos af ON f.id_foto = af.idFotos JOIN album a ON af.id_album = a.idAlbum WHERE f.title LIKE ? AND a.idAlbum = ?");
+            stmt.setString(1, "%"+title+"%");
+            stmt.setInt(2, idAlbum);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                images.add(img);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return images;
+    }
+
+    public ArrayList<Image> getImageByDescription(String description) {
+        Image img = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Image> images = new ArrayList<>();
+        
+
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT * FROM fotos WHERE title LIKE ?");
+            stmt.setString(1, "%"+description+"%");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                images.add(img);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return images;
+    }
+
+    public ArrayList<Image> getImageByDescription(String description, int idAlbum) {
+        Image img = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Image> images = new ArrayList<>();
+        
+
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT f.* FROM fotos f JOIN album_fotos af ON f.id_foto = af.idFotos JOIN album a ON af.id_album = a.idAlbum WHERE f.title LIKE ? AND a.idAlbum = ?");
+            stmt.setString(1, "%"+description+"%");
+            stmt.setInt(2, idAlbum);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                images.add(img);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return images;
+    }
+
+    public ArrayList<Image> getImageByAlbumId(int idAlbum) {
+        Image img = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Image> images = new ArrayList<>();
+        
+
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT f.* FROM fotos f JOIN album_fotos af ON f.id_foto = af.idFotos JOIN album a ON af.id_album = a.idAlbum WHERE a.idAlbum = ?");
+            stmt.setString(1, "%"+idAlbum+"%");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                images.add(img);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return images;
+    }
+
+    public Album getAlbumById(int id) {
+        Album alb = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT * FROM album WHERE idAlbum = ?");
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                alb = new Album(rs.getString("description"), rs.getString("title"), rs.getInt("idAlbum"));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return alb;
+    }
+
+    public ArrayList<Album> getAlbumByTitle(String title) {
+        Album alb = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Album> albumns = new ArrayList<>();
+        
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT * FROM fotos WHERE title LIKE ?");
+            stmt.setString(1, "%"+title+"%");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                alb = new Album(rs.getString("description"), rs.getString("title"), rs.getInt("idAlbum"));
+            }
+            albumns.add(alb);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return albumns;
+    }
+
+    public ArrayList<Album> getAlbumByDescription(String description) {
+        Album alb = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Album> albumns = new ArrayList<>();
+        
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT * FROM fotos WHERE description LIKE ?");
+            stmt.setString(1, "%"+description+"%");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                alb = new Album(rs.getString("description"), rs.getString("title"), rs.getInt("idAlbum"));
+            }
+            albumns.add(alb);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return albumns;
+    }
+
+    public boolean setAlbum(Album alb) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean setImage(Image img) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean setImageOnAlbum(Image img, int idAlbum) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean updateAlbum(Album alb) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean updateImage(Image img) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean deleteImage(Image img) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean deleteAlbum(Album alb) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean setImageToAlbum(Image img, Album alb) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
