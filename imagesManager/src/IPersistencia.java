@@ -16,10 +16,10 @@ public interface IPersistencia {
     ArrayList<Album> getAlbumByDescription(String description);
     boolean setAlbum(Album alb);
     boolean setImage(Image img);
-    boolean setImageOnAlbum(Image img, int idAlbum);
+    boolean setImageOnAlbum(int idImage, int idAlbum);
     boolean updateAlbum(Album alb);
     boolean updateImage(Image img);
-    boolean deleteImage(Image img);
-    boolean deleteAlbum(Album alb);
-    boolean setImageToAlbum(Image img, Album alb);
+    boolean deleteImage(int idImage);
+    boolean deleteAlbum(int idAlbum);
+    boolean deleteImageFromAlbum(Album alb);
 }
