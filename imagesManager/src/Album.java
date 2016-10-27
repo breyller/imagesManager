@@ -25,6 +25,14 @@ public class Album {
         }
     }
       
+    Album(String desc, String title, int id){
+        this.setDescription(desc);
+        this.setTitle(title);
+        if(!this.setId(id)){
+            System.out.println("Erro ao setar id.");
+        }
+    }
+      
     private boolean setImages(ArrayList<Image> images){
         boolean result = true;
         
@@ -47,6 +55,14 @@ public class Album {
             result = true;
         
         return result;
+    }
+
+    private void setDescription(String desc){
+        this.desc = new Description(desc);
+    }
+    
+    private void setTitle(String title){
+        this.title = new Title(title);
     }
     
     public String getDescription(){
