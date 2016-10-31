@@ -436,19 +436,53 @@ public class DbManipulate implements IPersistencia{
     public boolean setImageOnAlbum(int idImage, int idAlbum) {
         boolean result = false;
         Connection conn = null;
-        PreparedStatement stmt = null;
-                
+        PreparedStatement stmt = null, stmt2 = null;
+        ResultSet rs = null;
+        
         try {
             conn = DbConnector.getConnection();
-            //@todo: 
-            //fazer uma consulta para definir o order da imagem no primeiro momento.
-            //criar funcao de ordenacao.
-            //remover a linha abaixo.
-            int order = 1;
+            int order = 0;
+            stmt2 = conn.prepareStatement("SELECT COUNT(*) AS qtd_fotos FROM album_fotos WHERE id_album = ?");
+            stmt2.setInt(1, idAlbum);
+            rs = stmt2.executeQuery();
+            
+            while(rs.next()){
+                order = rs.getInt("qtd_fotos");
+                order = order + 1;
+            }
+            
             stmt = conn.prepareStatement("INSERT INTO album_fotos(id_album, id_foto, order) VALUES (?,?,?)");
             stmt.setInt(1, idAlbum);
             stmt.setInt(2, idImage);
             stmt.setInt(3, order);
+            stmt.executeUpdate();
+            result = true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt);
+                DbConnector.closeConnection(conn, stmt2);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
+    }
+
+    public boolean updateAlbum(Album alb) {
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+                
+        try {
+            conn = DbConnector.getConnection();
+            stmt = conn.prepareStatement("UPDATE album SET title = ?, description = ? WHERE idAlbum = ?");
+            stmt.setString(1, alb.getTitle());
+            stmt.setString(2, alb.getDescription());
+            stmt.setInt(3, alb.getId());
             stmt.executeUpdate();
             result = true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -465,16 +499,60 @@ public class DbManipulate implements IPersistencia{
         return result;
     }
 
-    public boolean updateAlbum(Album alb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public boolean updateImage(Image img) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+                
+        try {
+            conn = DbConnector.getConnection();
+            stmt = conn.prepareStatement("UPDATE fotos SET title = ?, description = ?, path = ?, hash = ? WHERE idFotos = ?");
+            stmt.setString(1, img.getTitle());
+            stmt.setString(2, img.getDescription());
+            stmt.setString(3, img.getPath());
+            stmt.setString(4, img.getHash());
+            stmt.setInt(5, img.getId());
+            stmt.executeUpdate();
+            result = true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
     }
 
     public boolean deleteImage(int idImage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean result = false;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        //@todo: reorganizar a ordenação do album que a imagem pertence.        
+        try {
+            conn = DbConnector.getConnection();
+            stmt = conn.prepareStatement("DELETE FROM fotos WHERE idFotos = ?");
+            stmt.setInt(1, idImage);
+            stmt.executeUpdate();
+            result = true;
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            return result;
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return result;
+
     }
 
     public boolean deleteAlbum(int idAlbum) {
