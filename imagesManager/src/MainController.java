@@ -1,8 +1,10 @@
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -14,34 +16,45 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import javafx.fxml.Initializable;
 
-public class MainController{
+
+public class MainController implements Initializable {
 
     public static final String directory = "src/Img/";
     public int count = 0;
     
     /*Popular combo albuns*/    
-    @FXML
-    public ComboBox<String> albuns;
+    //@FXML
+    //public ComboBox<String> albuns;
+    
     DbManipulate bancoDados = new DbManipulate();
     ArrayList<Album> arAlbuns = bancoDados.getAllAbuns();
     ArrayList<String> nomesAlbuns = null;
             
-    for(Album alb : arAlbuns) {
-        nomesAlbuns.add(alb.getTitle());
-    }
-    ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
+    //for(Album alb : arAlbuns) {
+    //    nomesAlbuns.add(alb.getTitle());
+    //}
+    //ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
     
     /*Popular lista*/
     @FXML
     public ComboBox<String> combo;    
-    ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
     
-    public void populateComboList(ActionEvent listComboData){
-        
+   
+    public void initialize(URL url, ResourceBundle resource){
+        ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
+        combo.getItems().clear(); 
         combo.setItems(comboData);
+    }
+  
+            
+//    public void populateComboList(ActionEvent listComboData){
+//        combo.getItems().clear(); 
+//        combo.setItems(comboData);
 
-        //combo.getItems().clear();
+        
+ 
        // combo.setItems(comboData);
        //combo.getItems().addAll(
        //     "Option 4",
@@ -49,7 +62,7 @@ public class MainController{
        //     "Option 6"
        // );
         //combo.getItens().addAll("Album1", "Album2", "Album3");
-    }
+    //}
     
     @FXML
     public Button btnteste;
@@ -64,13 +77,13 @@ public class MainController{
    // }
     
     /*Popular lista*/
-    //@FXML
-    //public ListView<String> list;
-    //ObservableList<String> data = FXCollections.observableArrayList("Single", "Double", "Suite", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp");
+    @FXML
+    public ListView<String> list;
+    ObservableList<String> data = FXCollections.observableArrayList("Single", "Double", "Suite", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp");
 
-    //public void populateList(ActionEvent listData){
-    //    list.setItems(data);
-   // }
+    public void populateList(ActionEvent listData){
+        list.setItems(data);
+    }
     
     /*Exemplo*/
     @FXML
