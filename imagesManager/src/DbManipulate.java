@@ -288,6 +288,36 @@ public class DbManipulate implements IPersistencia{
         return images;
     }
 
+    public ArrayList<Album> getAllAbuns(){
+        Album alb = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Album> albumns = new ArrayList<>();
+        
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT * FROM album");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                alb = new Album(rs.getString("description"), rs.getString("title"), rs.getInt("idAlbum"));
+            }
+            albumns.add(alb);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return albumns;
+    }
+    
     public Album getAlbumById(int id) {
         Album alb = null;
         Connection conn = null;

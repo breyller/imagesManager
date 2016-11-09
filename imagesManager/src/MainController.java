@@ -1,28 +1,36 @@
 import java.io.File;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
-
+import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 
 public class MainController{
 
     public static final String directory = "src/Img/";
     public int count = 0;
-
+    
+    /*Popular combo albuns*/    
+    @FXML
+    public ComboBox<String> albuns;
+    DbManipulate bancoDados = new DbManipulate();
+    ArrayList<Album> arAlbuns = bancoDados.getAllAbuns();
+    ArrayList<String> nomesAlbuns = null;
+            
+    for(Album alb : arAlbuns) {
+        nomesAlbuns.add(alb.getTitle());
+    }
+    ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
+    
     /*Popular lista*/
     @FXML
     public ListView<String> list;
@@ -62,7 +70,7 @@ public class MainController{
         teste.setImage(image);
         count++;
             
-        if(count == 4){
+        if(count == 5){
             count = 0;
         }
     }

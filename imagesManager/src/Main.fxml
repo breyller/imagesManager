@@ -33,7 +33,7 @@
       <Button fx:id="btn1" layoutX="23.0" layoutY="133.0" mnemonicParsing="false" onAction="#btn1Action" prefHeight="25.0" prefWidth="149.0" text="Selecione a Imagem" />
       <Button layoutX="272.0" layoutY="403.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
       <Button layoutX="952.0" layoutY="488.0" mnemonicParsing="false" text="Pesquisar por Nome" />
-      <ComboBox editable="true" layoutX="645.0" layoutY="439.0" prefHeight="25.0" prefWidth="143.0" promptText="Albuns" />
+      <ComboBox editable="true" layoutX="645.0" layoutY="439.0" prefHeight="25.0" prefWidth="143.0" promptText="Albuns" onAction="#populateAlbuns"  />
       <TextField layoutX="645.0" layoutY="488.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
       <Separator layoutX="611.0" layoutY="10.0" orientation="VERTICAL" prefHeight="557.0" prefWidth="6.0" />
       <ComboBox editable="true" layoutX="22.0" layoutY="502.0" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
