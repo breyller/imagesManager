@@ -1,9 +1,9 @@
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javafx.scene.control.Label;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
 public class MainController{
@@ -33,12 +34,43 @@ public class MainController{
     
     /*Popular lista*/
     @FXML
-    public ListView<String> list;
-    ObservableList<String> data = FXCollections.observableArrayList("Single", "Double", "Suite", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp");
+    public ComboBox<String> combo;    
+    ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
+    
+    public void populateComboList(ActionEvent listComboData){
+        
+        combo.setItems(comboData);
 
-    public void populateList(ActionEvent listData){
-        list.setItems(data);
+        //combo.getItems().clear();
+       // combo.setItems(comboData);
+       //combo.getItems().addAll(
+       //     "Option 4",
+       //     "Option 5",
+       //     "Option 6"
+       // );
+        //combo.getItens().addAll("Album1", "Album2", "Album3");
     }
+    
+    @FXML
+    public Button btnteste;
+    
+    //public void doAction(){
+   // for(ActionListener listComboData: btnteste.getActionListeners()) {
+   // listComboData.actionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, null) {
+          //Nothing need go here, the actionPerformed method (with the
+          //above arguments) will trigger the respective listener
+   // });
+   // };
+   // }
+    
+    /*Popular lista*/
+    //@FXML
+    //public ListView<String> list;
+    //ObservableList<String> data = FXCollections.observableArrayList("Single", "Double", "Suite", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp");
+
+    //public void populateList(ActionEvent listData){
+    //    list.setItems(data);
+   // }
     
     /*Exemplo*/
     @FXML
