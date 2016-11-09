@@ -74,12 +74,12 @@
          </font></Label>
       <Button layoutX="1030.0" layoutY="537.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="55.0" text="Sair" />
       <Label layoutX="645.0" layoutY="415.0" prefHeight="17.0" prefWidth="373.0" text="Selecione o Album:" />
-      <ListView fx:id="list" layoutX="373.0" layoutY="221.0" onMouseClicked="#populateList" prefHeight="307.0" prefWidth="200.0" />
+      <ListView fx:id="list" layoutX="373.0" layoutY="221.0" prefHeight="307.0" prefWidth="200.0" />
       <Button layoutX="373.0" layoutY="537.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Exportar HTML" />
       <ListView fx:id="getItens" layoutX="23.0" layoutY="163.0" prefHeight="69.0" prefWidth="149.0" />
       <TextField layoutX="182.0" layoutY="133.0" promptText="Nome da Imagem" />
       <TextField layoutX="182.0" layoutY="163.0" prefHeight="69.0" prefWidth="149.0" promptText="Descrição" />
-      <Button layoutX="184.0" layoutY="236.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Inserir" />
-      <ComboBox editable="true" layoutX="22.0" layoutY="341.0" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
+      <Button fx:id="btnteste" layoutX="184.0" layoutY="236.0" onAction="#populateComboList" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Testa aqui" />
+      <ComboBox fx:id="combo" editable="true" onAction="#populateComboList" layoutX="22.0" layoutY="341.0" prefHeight="25.0" prefWidth="307.0" promptText="Teste aqui" />
    </children>
 </AnchorPane>
