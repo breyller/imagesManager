@@ -17,6 +17,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckMenuItem;
 
 
 public class MainController implements Initializable {
@@ -38,17 +39,38 @@ public class MainController implements Initializable {
     //ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
     
     /*Popular lista*/
+
     @FXML
-    public ComboBox<String> combo;    
-    
+    public ComboBox<String> combo1; 
+    @FXML
+    public ComboBox<String> combo2;
    
     public void initialize(URL url, ResourceBundle resource){
         ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
         combo.getItems().clear(); 
         combo.setItems(comboData);
+        
+        combo1.getItems().clear(); 
+        combo1.setItems(comboData);
+        
+        
+        
+
     }
-  
-            
+    
+
+    
+    public void popCombo2(ActionEvent listComboData){
+            ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
+            String out = combo1.getValue();
+            if (out != null){
+                combo2.setDisable(false);
+                combo2.getItems().clear(); 
+                combo2.setItems(comboData);
+            }
+    }
+    
+                 
 //    public void populateComboList(ActionEvent listComboData){
 //        combo.getItems().clear(); 
 //        combo.setItems(comboData);
@@ -77,11 +99,17 @@ public class MainController implements Initializable {
    // }
     
     /*Popular lista*/
+        @FXML
+    public ComboBox<String> combo;
     @FXML
     public ListView<String> list;
-    ObservableList<String> data = FXCollections.observableArrayList("Single", "Double", "Suite", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp", "FamilyApp");
-
+    //ObservableList<String> data;
+    ObservableList<String> data = FXCollections.observableArrayList();
+    
+    
     public void populateList(ActionEvent listData){
+       
+        data.add(combo.getValue());
         list.setItems(data);
     }
     
@@ -124,12 +152,14 @@ public class MainController implements Initializable {
     public Button btn1;
     @FXML
     public ListView getItens;
+
     
     public void btn1Action(ActionEvent event){
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File("src/Img/"));
                 
         List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+
         
         if(selectedFiles != null){
             for (int i = 0; i < selectedFiles.size();i++){
