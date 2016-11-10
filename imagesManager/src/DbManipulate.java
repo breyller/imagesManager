@@ -288,7 +288,7 @@ public class DbManipulate implements IPersistencia{
         return images;
     }
 
-    public ArrayList<Album> getAllAbuns(){
+    public ArrayList<Album> getAllAlbuns(){
         Album alb = null;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -563,7 +563,6 @@ public class DbManipulate implements IPersistencia{
         Connection conn = null;
         PreparedStatement stmt = null;
         
-        //@todo: reorganizar a ordenação do album que a imagem pertence.        
         try {
             conn = DbConnector.getConnection();
             stmt = conn.prepareStatement("DELETE FROM fotos WHERE idFotos = ?");
