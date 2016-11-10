@@ -24,18 +24,19 @@ public class MainController{
     @FXML
     public ComboBox<String> albuns;
     DbManipulate bancoDados = new DbManipulate();
-    ArrayList<Album> arAlbuns = bancoDados.getAllAbuns();
+    ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
     ArrayList<String> nomesAlbuns = null;
             
-    for(Album alb : arAlbuns) {
-        nomesAlbuns.add(alb.getTitle());
-    }
+//    for(Album alb : arAlbuns) {
+//        nomesAlbuns.add(alb.getTitle());
+//    }
+    
     ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
     
     /*Popular lista*/
     @FXML
     public ComboBox<String> combo;    
-    ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
+//    ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
     
     public void populateComboList(ActionEvent listComboData){
         
