@@ -585,10 +585,10 @@ public class DbManipulate implements IPersistencia{
     }
 
     public boolean deleteAlbum(int idAlbum) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Metodo indisponivel.");
     }
     
     public boolean deleteImageFromAlbum(Album alb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Metodo indisponivel.");
     }
 }
