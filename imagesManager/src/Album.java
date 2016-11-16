@@ -57,11 +57,11 @@ public class Album {
         return result;
     }
 
-    private void setDescription(String desc){
+    public void setDescription(String desc){
         this.desc = new Description(desc);
     }
     
-    private void setTitle(String title){
+    public void setTitle(String title){
         this.title = new Title(title);
     }
     
