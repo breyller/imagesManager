@@ -18,7 +18,7 @@
 
       <Button layoutX="1057.0" layoutY="382.0" mnemonicParsing="false" onAction="#array" text="&gt;" />
       <Button layoutX="1021.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="&lt;" />
-      <Label layoutX="645.0" layoutY="386.0" prefHeight="17.0" prefWidth="373.0" text="Nome da Imagem" textFill="#000000ad">
+      <Label fx:id="text" layoutX="645.0" layoutY="386.0" prefHeight="17.0" prefWidth="373.0" textFill="#000000ad">
          <font>
             <Font name="System Italic" size="12.0" />
          </font>
@@ -73,9 +73,9 @@
       <TextField layoutX="182.0" layoutY="190.0" promptText="Nome da Imagem" />
       <TextField layoutX="182.0" layoutY="219.0" prefHeight="69.0" prefWidth="149.0" promptText="Descrição" />
       <ComboBox fx:id="combo1" editable="true" layoutX="24.0" layoutY="357.0" onAction="#popCombo2" prefHeight="25.0" prefWidth="307.0" promptText="Album" />
-      <TextField layoutX="32.0" layoutY="109.0" promptText="Nome do album" />
-      <Button layoutX="182.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Adicionar Album" />
-      <Label layoutX="22.0" layoutY="81.0" prefHeight="17.0" prefWidth="109.0" text="Inserir Album" textFill="RED">
+      <TextField fx:id="getAlbumName" layoutX="32.0" layoutY="90.0" promptText="Nome do album" />
+      <Button layoutX="182.0" layoutY="118.0" mnemonicParsing="false" onAction="#newAlbum" prefHeight="25.0" prefWidth="149.0" text="Adicionar Album" />
+      <Label layoutX="22.0" layoutY="66.0" prefHeight="17.0" prefWidth="109.0" text="Inserir Album" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -88,6 +88,7 @@
       <Label layoutX="880.0" layoutY="443.0" text="20" />
       <Button layoutX="902.0" layoutY="439.0" mnemonicParsing="false" text="/\" />
       <Button layoutX="935.0" layoutY="439.0" mnemonicParsing="false" text="\\/" />
+      <TextField fx:id="getAlbumDesc" layoutX="32.0" layoutY="118.0" promptText="Desc. do Album" />
       
    </children>
 </AnchorPane>
