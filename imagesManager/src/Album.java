@@ -4,17 +4,17 @@ public class Album {
     Description desc;
     Title title;
     int id;
-    ArrayList<Image> albumImages;
+    ArrayList<Imagem> albumImages;
     
     Album(){
         this.desc = new Description();
         this.title = new Title();
         this.id = 0;
-        Image img = new Image();
+        Imagem img = new Imagem();
         this.albumImages.add(img);
     }
     
-    Album(String desc, String title, int id, ArrayList<Image> images){
+    Album(String desc, String title, int id, ArrayList<Imagem> images){
         this.desc = new Description(desc);
         this.title = new Title(title);
         if(!this.setId(id)){
@@ -33,11 +33,11 @@ public class Album {
         }
     }
       
-    private boolean setImages(ArrayList<Image> images){
+    private boolean setImages(ArrayList<Imagem> images){
         boolean result = true;
         
         try{
-            for(Image img : images){
+            for(Imagem img : images){
                 this.albumImages.add(img);
             }
         } catch (Exception e){
@@ -77,7 +77,7 @@ public class Album {
         return this.id;
     }
     
-    public ArrayList<Image> getAllImages(){
+    public ArrayList<Imagem> getAllImages(){
         return this.albumImages;
     }
 }

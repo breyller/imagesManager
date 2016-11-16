@@ -7,21 +7,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
-public class Image {
+public class Imagem {
     private Description desc;
     private Title title;
     private String path;
     private String hash;
     private int id;
     
-    public Image(){
+    public Imagem(){
         this.desc = new Description();
         this.title = new Title();
         this.setPath(null);
         this.setHash(null);
     }
     
-    public Image(String desc, String title, String path, String hash, int id){
+    public Imagem(String desc, String title, String path, String hash, int id){
         this.desc = new Description(desc);
         this.title = new Title(title);
         this.setPath(path);

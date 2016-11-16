@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 public class DbManipulate implements IPersistencia{
     
-    public Image getImageById(int id){
-        Image img = null;
+    public Imagem getImageById(int id){
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -22,7 +22,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
@@ -37,8 +37,8 @@ public class DbManipulate implements IPersistencia{
         return img;
     }
 
-    public Image getImageByHash(String hash) {
-        Image img = null;
+    public Imagem getImageByHash(String hash) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -51,7 +51,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,14 +66,13 @@ public class DbManipulate implements IPersistencia{
         return img;
     }
     
-    public ArrayList<Image> getImageByTitle(String title) {
-        Image img = null;
+    public ArrayList<Imagem> getImageByTitle(String title) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Image> images = new ArrayList<>();
+        ArrayList<Imagem> images = new ArrayList<>();
         
-
         try {
             conn = DbConnector.getConnection();
             
@@ -82,7 +81,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
                 images.add(img);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -98,8 +97,8 @@ public class DbManipulate implements IPersistencia{
         return images;
     }
 
-    public Image getImageById(int id, int idAlbum) {
-        Image img = null;
+    public Imagem getImageById(int id, int idAlbum) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -113,7 +112,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,8 +127,8 @@ public class DbManipulate implements IPersistencia{
         return img;
     }
 
-    public Image getImageByHash(String hash, int idAlbum) {
-        Image img = null;
+    public Imagem getImageByHash(String hash, int idAlbum) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -143,7 +142,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,14 +157,13 @@ public class DbManipulate implements IPersistencia{
         return img;
     }
 
-    public ArrayList<Image> getImageByTitle(String title, int idAlbum) {
-        Image img = null;
+    public ArrayList<Imagem> getImageByTitle(String title, int idAlbum) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Image> images = new ArrayList<>();
+        ArrayList<Imagem> images = new ArrayList<>();
         
-
         try {
             conn = DbConnector.getConnection();
             
@@ -175,7 +173,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
                 images.add(img);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -191,14 +189,13 @@ public class DbManipulate implements IPersistencia{
         return images;
     }
 
-    public ArrayList<Image> getImageByDescription(String description) {
-        Image img = null;
+    public ArrayList<Imagem> getImageByDescription(String description) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Image> images = new ArrayList<>();
+        ArrayList<Imagem> images = new ArrayList<>();
         
-
         try {
             conn = DbConnector.getConnection();
             
@@ -207,7 +204,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
                 images.add(img);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -223,14 +220,13 @@ public class DbManipulate implements IPersistencia{
         return images;
     }
 
-    public ArrayList<Image> getImageByDescription(String description, int idAlbum) {
-        Image img = null;
+    public ArrayList<Imagem> getImageByDescription(String description, int idAlbum) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Image> images = new ArrayList<>();
+        ArrayList<Imagem> images = new ArrayList<>();
         
-
         try {
             conn = DbConnector.getConnection();
             
@@ -240,7 +236,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
                 images.add(img);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -256,14 +252,13 @@ public class DbManipulate implements IPersistencia{
         return images;
     }
 
-    public ArrayList<Image> getImageByAlbumId(int idAlbum) {
-        Image img = null;
+    public ArrayList<Imagem> getImageByAlbumId(int idAlbum) {
+        Imagem img = null;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Image> images = new ArrayList<>();
+        ArrayList<Imagem> images = new ArrayList<>();
         
-
         try {
             conn = DbConnector.getConnection();
             
@@ -272,7 +267,7 @@ public class DbManipulate implements IPersistencia{
             rs = stmt.executeQuery();
             
             while(rs.next()){
-                img = new Image(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
+                img = new Imagem(rs.getString("description"), rs.getString("title"), rs.getString("path"), rs.getString("hash"), rs.getInt("idFotos"));
                 images.add(img);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -363,8 +358,8 @@ public class DbManipulate implements IPersistencia{
             
             while(rs.next()){
                 alb = new Album(rs.getString("description"), rs.getString("title"), rs.getInt("idAlbum"));
+                albumns.add(alb);
             }
-            albumns.add(alb);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
@@ -435,7 +430,7 @@ public class DbManipulate implements IPersistencia{
         return result;
     }
 
-    public boolean setImage(Image img) {
+    public boolean setImage(Imagem img) {
         boolean result = false;
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -529,7 +524,7 @@ public class DbManipulate implements IPersistencia{
         return result;
     }
 
-    public boolean updateImage(Image img) {
+    public boolean updateImage(Imagem img) {
         boolean result = false;
         Connection conn = null;
         PreparedStatement stmt = null;
