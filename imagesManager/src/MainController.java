@@ -46,16 +46,20 @@ public class MainController implements Initializable {
     public ComboBox<String> combo2;
    
     public void initialize(URL url, ResourceBundle resource){
-        ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
+        DbManipulate bancoDados = new DbManipulate();
+        ArrayList<String> nomesAlbuns = new ArrayList<String>();
+        ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
+        
+        for(int i = 0; i < arAlbuns.size(); i++){
+            nomesAlbuns.add(arAlbuns.get(i).getTitle());
+        }
+
+        ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
         combo.getItems().clear(); 
         combo.setItems(comboData);
         
         combo1.getItems().clear(); 
         combo1.setItems(comboData);
-        
-        
-        
-
     }
     
 
@@ -106,9 +110,8 @@ public class MainController implements Initializable {
     //ObservableList<String> data;
     ObservableList<String> data = FXCollections.observableArrayList();
     
-    
     public void populateList(ActionEvent listData){
-       
+        
         data.add(combo.getValue());
         list.setItems(data);
     }
