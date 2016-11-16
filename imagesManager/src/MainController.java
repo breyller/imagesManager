@@ -136,6 +136,9 @@ public class MainController implements Initializable {
 
     @FXML
     public ImageView teste;
+    @FXML
+    public Label text;
+    public Imagem selectTitle;
     
     public void array(ActionEvent array){
         File path = null;
@@ -149,6 +152,11 @@ public class MainController implements Initializable {
         if(count == 5){
             count = 0;
         }
+        
+        selectTitle = new Imagem("teste", "teste123", "file:///C:\\Users\\b140528.FT.001\\Documents\\NetBeansProjects\\imagesManager\\imagesManager\\src\\Img\\2.jpg", "12312312312sadd", 1);
+                
+        String Titulo = selectTitle.getTitle();
+        text.setText(Titulo);
     }
      
     @FXML
