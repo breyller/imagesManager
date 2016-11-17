@@ -389,8 +389,8 @@ public class DbManipulate implements IPersistencia{
             
             while(rs.next()){
                 alb = new Album(rs.getString("description"), rs.getString("title"), rs.getInt("idAlbum"));
+                albumns.add(alb);
             }
-            albumns.add(alb);
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
