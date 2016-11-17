@@ -27,10 +27,10 @@
       <Button layoutX="272.0" layoutY="421.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
       <Button fx:id="btn1" layoutX="32.0" layoutY="190.0" mnemonicParsing="false" onAction="#btn1Action" prefHeight="25.0" prefWidth="149.0" text="Selecione a Imagem" />
       <Button layoutX="952.0" layoutY="467.0" mnemonicParsing="false" text="Pesquisar por Nome" />
-      <ComboBox editable="true" layoutX="645.0" layoutY="439.0" prefHeight="25.0" prefWidth="143.0" promptText="Albuns" />
+      <ComboBox fx:id="combo5" editable="true" layoutX="645.0" layoutY="439.0" onAction="#populateList" prefHeight="25.0" prefWidth="143.0" promptText="Albuns" />
       <TextField layoutX="645.0" layoutY="467.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
       <Separator layoutX="611.0" layoutY="10.0" orientation="VERTICAL" prefHeight="557.0" prefWidth="6.0" />
-      <ComboBox editable="true" layoutX="22.0" layoutY="502.0" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
+      <ComboBox fx:id="combo4" editable="true" layoutX="22.0" layoutY="502.0" onAction="#populateList" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
       <ComboBox fx:id="combo2" disable="true" editable="true" layoutX="23.0" layoutY="389.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
       <Label layoutX="228.0" layoutY="25.0" prefHeight="26.0" prefWidth="210.0" text="Manipulação das Imagens">
          <font>
@@ -47,7 +47,7 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Label>
-      <ComboBox editable="true" layoutX="32.0" layoutY="290.0" prefHeight="25.0" prefWidth="149.0" promptText="Selecione o Album" />
+      <ComboBox fx:id="combo3" editable="true" layoutX="32.0" layoutY="290.0" onAction="#populateList" prefHeight="25.0" prefWidth="149.0" promptText="Selecione o Album" />
       <Label layoutX="14.0" layoutY="466.0" prefHeight="17.0" prefWidth="116.0" text="Exportar Album" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />
