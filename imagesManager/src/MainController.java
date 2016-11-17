@@ -17,7 +17,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.TextField;
 
 
 public class MainController implements Initializable {
@@ -44,25 +47,47 @@ public class MainController implements Initializable {
     public ComboBox<String> combo1; 
     @FXML
     public ComboBox<String> combo2;
-   
-    public void initialize(URL url, ResourceBundle resource){
-        DbManipulate bancoDados = new DbManipulate();
-        ArrayList<String> nomesAlbuns = new ArrayList<String>();
-        ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
-        
-        for(int i = 0; i < arAlbuns.size(); i++){
-            nomesAlbuns.add(arAlbuns.get(i).getTitle());
-        }
 
-        ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
-        combo.getItems().clear(); 
-        combo.setItems(comboData);
-        
-        combo1.getItems().clear(); 
-        combo1.setItems(comboData);
+    
+    public void initialize(URL url, ResourceBundle resource){
+        populateComboList(null);
     }
     
-
+    //btnNewAlbum - onAction
+    @FXML
+    public TextField getAlbumName;
+    @FXML
+    public TextField getAlbumDesc;
+    public DbManipulate db = new DbManipulate();
+    
+    public void newAlbum(ActionEvent setNewAlbum){
+        String TituloAlbum;
+        String DescAlbum;
+        TituloAlbum = getAlbumName.getText();
+        DescAlbum = getAlbumDesc.getText();
+        boolean retorno = false;
+        
+        Album alb = new Album();
+        alb.setTitle(TituloAlbum);
+        alb.setDescription(DescAlbum);
+        retorno = db.setAlbum(alb);
+        
+        if(retorno){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Album inserido com sucesso!");
+            alert.showAndWait();
+            populateComboList(null);
+        }
+        else{
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Falha ao inserir album!");
+            alert.showAndWait();
+        }
+    }
     
     public void popCombo2(ActionEvent listComboData){
             ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
@@ -75,20 +100,22 @@ public class MainController implements Initializable {
     }
     
                  
-//    public void populateComboList(ActionEvent listComboData){
-//        combo.getItems().clear(); 
-//        combo.setItems(comboData);
-
+    public void populateComboList(ActionEvent listComboData){
+        DbManipulate bancoDados = new DbManipulate();
+        ArrayList<String> nomesAlbuns = new ArrayList<String>();
+        ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
         
- 
-       // combo.setItems(comboData);
-       //combo.getItems().addAll(
-       //     "Option 4",
-       //     "Option 5",
-       //     "Option 6"
-       // );
-        //combo.getItens().addAll("Album1", "Album2", "Album3");
-    //}
+        for(int i = 0; i < arAlbuns.size(); i++){
+            nomesAlbuns.add(arAlbuns.get(i).getTitle());
+        }
+
+        ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
+        combo.getItems().clear(); 
+        combo.setItems(comboData);
+
+        combo1.getItems().clear(); 
+        combo1.setItems(comboData);
+    }
     
     @FXML
     public Button btnteste;

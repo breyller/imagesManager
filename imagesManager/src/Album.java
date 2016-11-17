@@ -10,8 +10,8 @@ public class Album {
         this.desc = new Description();
         this.title = new Title();
         this.id = 0;
-        Imagem img = new Imagem();
-        this.albumImages.add(img);
+        //Imagem img = new Imagem();
+        //this.albumImages.add(img);
     }
     
     Album(String desc, String title, int id, ArrayList<Imagem> images){
@@ -57,11 +57,11 @@ public class Album {
         return result;
     }
 
-    private void setDescription(String desc){
+    public void setDescription(String desc){
         this.desc = new Description(desc);
     }
     
-    private void setTitle(String title){
+    public void setTitle(String title){
         this.title = new Title(title);
     }
     
