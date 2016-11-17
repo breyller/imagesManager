@@ -47,7 +47,12 @@ public class MainController implements Initializable {
     public ComboBox<String> combo1; 
     @FXML
     public ComboBox<String> combo2;
-
+    @FXML
+    public ComboBox<String> combo3;
+    @FXML
+    public ComboBox<String> combo4;
+    @FXML
+    public ComboBox<String> combo5;    
     
     public void initialize(URL url, ResourceBundle resource){
         populateComboList(null);
@@ -115,6 +120,16 @@ public class MainController implements Initializable {
 
         combo1.getItems().clear(); 
         combo1.setItems(comboData);
+        
+        combo3.getItems().clear(); 
+        combo3.setItems(comboData);
+        
+        combo4.getItems().clear(); 
+        combo4.setItems(comboData);     
+ 
+        combo5.getItems().clear(); 
+        combo5.setItems(comboData);        
+        
     }
     
     @FXML
