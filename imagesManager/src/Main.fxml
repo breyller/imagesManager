@@ -12,8 +12,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="1101.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
    <children>
-      <Button layoutX="698.0" layoutY="537.0" mnemonicParsing="false" onAction="#generateRandom" text="Random" />
-      <Label fx:id="myMessage" layoutX="643.0" layoutY="559.0" prefHeight="25.0" prefWidth="55.0" />
       <ImageView fx:id="teste" fitHeight="290.0" fitWidth="437.0" layoutX="645.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" />
 
       <Button layoutX="1057.0" layoutY="382.0" mnemonicParsing="false" onAction="#array" text="&gt;" />

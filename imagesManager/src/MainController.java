@@ -72,25 +72,46 @@ public class MainController implements Initializable {
         DescAlbum = getAlbumDesc.getText();
         boolean retorno = false;
         
-        Album alb = new Album();
-        alb.setTitle(TituloAlbum);
-        alb.setDescription(DescAlbum);
-        retorno = db.setAlbum(alb);
         
-        if(retorno){
+        if (getAlbumName.getText() == null || getAlbumName.getText().trim().isEmpty() || getAlbumDesc.getText() == null || getAlbumDesc.getText().trim().isEmpty()) {
+            System.out.println("textField is empty");
+        }else{
+            System.out.println("textField is not empty");
+        } 
+        
+        if (getAlbumName.getText() == null || getAlbumName.getText().trim().isEmpty() || getAlbumDesc.getText() == null || getAlbumDesc.getText().trim().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Preencha os campos em brancos (nome e descrição) para inserir os albuns!");
+            alert.showAndWait();
+        } else {
+            Album alb = new Album();
+            alb.setTitle(TituloAlbum);
+            alb.setDescription(DescAlbum);
+            retorno = db.setAlbum(alb);
+            
+            if(retorno){
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
             alert.setContentText("Album inserido com sucesso!");
             alert.showAndWait();
+            getAlbumName.setText("");
+            getAlbumDesc.setText("");
             populateComboList(null);
-        }
-        else{
+
+            }
+            else{
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
             alert.setContentText("Falha ao inserir album!");
             alert.showAndWait();
+            
+
+            //newAlbum(null);
+            }
         }
     }
     
@@ -134,22 +155,12 @@ public class MainController implements Initializable {
     
     @FXML
     public Button btnteste;
-    
-    //public void doAction(){
-   // for(ActionListener listComboData: btnteste.getActionListeners()) {
-   // listComboData.actionPerformed(new java.awt.event.ActionEvent(this, java.awt.event.ActionEvent.ACTION_PERFORMED, null) {
-          //Nothing need go here, the actionPerformed method (with the
-          //above arguments) will trigger the respective listener
-   // });
-   // };
-   // }
-    
     /*Popular lista*/
-        @FXML
+    @FXML
     public ComboBox<String> combo;
     @FXML
     public ListView<String> list;
-    //ObservableList<String> data;
+    
     ObservableList<String> data = FXCollections.observableArrayList();
     
     public void populateList(ActionEvent listData){
@@ -158,24 +169,12 @@ public class MainController implements Initializable {
         list.setItems(data);
     }
     
-    /*Exemplo*/
-    @FXML
-    private Label myMessage;
-    
-    public void generateRandom(ActionEvent event){
-        Random rand = new Random();
-        int myrand = rand.nextInt(50);
-        myMessage.setText(Integer.toString(myrand));
-    }
-   
     /*Botao Sair*/
     public void exit(ActionEvent exit){
         System.exit(0);
     }
     
-    
     /*Diretorio de imagens*/
-
     @FXML
     public ImageView teste;
     @FXML
@@ -210,16 +209,29 @@ public class MainController implements Initializable {
     public void btn1Action(ActionEvent event){
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File("src/Img/"));
-                
-        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-
+        File selectedFile = fc.showOpenDialog(null);
         
-        if(selectedFiles != null){
-            for (int i = 0; i < selectedFiles.size();i++){
-            getItens.getItems().add(selectedFiles.get(i).getAbsolutePath());
-            }
+        if(selectedFile != null) {
+            getItens.getItems().add(selectedFile.getName());
         } else {
-            System.out.println("File is not valid");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Falha ao inserir arquivo!");
+            alert.showAndWait();
         }
+        
+                
+       
+//        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+//
+//        
+//        if(selectedFiles != null){
+//            for (int i = 0; i < selectedFiles.size();i++){
+//            getItens.getItems().add(selectedFiles.get(i).getAbsolutePath());
+//            }
+//        } else {
+//            System.out.println("File is not valid");
+//        }
     } 
 }
