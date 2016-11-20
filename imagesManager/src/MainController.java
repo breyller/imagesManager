@@ -116,7 +116,15 @@ public class MainController implements Initializable {
     }
     
     public void popCombo2(ActionEvent listComboData){
-            ObservableList<String> comboData = FXCollections.observableArrayList("Album1", "Album2", "Album3");
+        DbManipulate bancoDados = new DbManipulate();
+        ArrayList<String> nomesImagens = new ArrayList<String>();
+        ArrayList<Imagem> arImagens = bancoDados.getAllImages();
+        
+        for(int i = 0; i < arImagens.size(); i++){
+            nomesImagens.add(arImagens.get(i).getTitle());
+        }
+
+        ObservableList<String> comboData = FXCollections.observableArrayList(nomesImagens);
             String out = combo1.getValue();
             if (out != null){
                 combo2.setDisable(false);
@@ -201,28 +209,21 @@ public class MainController implements Initializable {
     }
      
     @FXML
-    public Button btn1;
+    public Button btninsertImage;
     @FXML
-    public ListView getItens;
-
+    public Label lImageName;
+    @FXML
+    public TextField txtImageName;
+    @FXML
+    public TextField txtImageDesc;
     
-    public void btn1Action(ActionEvent event){
+    public void selectImage(ActionEvent event){
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File("src/Img/"));
         File selectedFile = fc.showOpenDialog(null);
+        lImageName.setText(selectedFile.getName());
         
-        if(selectedFile != null) {
-            getItens.getItems().add(selectedFile.getName());
-        } else {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Falha ao inserir arquivo!");
-            alert.showAndWait();
-        }
-        
-                
-       
+       /*Seleção multipla*/
 //        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
 //
 //        
@@ -234,4 +235,39 @@ public class MainController implements Initializable {
 //            System.out.println("File is not valid");
 //        }
     } 
+    
+    public void insertImage(ActionEvent event){
+    
+        
+        if (lImageName.getText() == null || lImageName.getText().trim().isEmpty()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione uma imagem para ser inserida!");
+            alert.showAndWait();
+        } else if (txtImageName.getText() == null || txtImageName.getText().trim().isEmpty() || txtImageDesc.getText() == null || txtImageDesc.getText().trim().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Insira nome e/ou a descrição da Imagem!");
+            alert.showAndWait();
+        } else if (combo3.getValue() == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Escolha o album!");
+            alert.showAndWait();
+        } else {
+            System.out.println(combo3.getValue());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Imagem Inserida com sucesso");
+            alert.showAndWait();
+            lImageName.setText(null);
+            txtImageName.setText("");
+            txtImageDesc.setText("");
+            combo3.setValue(null);
+        }
+    }
 }

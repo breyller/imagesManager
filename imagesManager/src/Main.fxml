@@ -23,14 +23,14 @@
       </Label>
       <Button layoutX="272.0" layoutY="537.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
       <Button layoutX="272.0" layoutY="421.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
-      <Button fx:id="btn1" layoutX="32.0" layoutY="190.0" mnemonicParsing="false" onAction="#btn1Action" prefHeight="25.0" prefWidth="149.0" text="Selecione a Imagem" />
-      <Button layoutX="952.0" layoutY="467.0" mnemonicParsing="false" text="Pesquisar por Nome" />
+      <Button fx:id="btninsertImage" layoutX="32.0" layoutY="190.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="25.0" prefWidth="116.0" text="Selec. Imagem" />
+      <Button layoutX="952.0" layoutY="467.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesq. Nome" />
       <ComboBox fx:id="combo5" editable="true" layoutX="645.0" layoutY="439.0" onAction="#populateList" prefHeight="25.0" prefWidth="143.0" promptText="Albuns" />
       <TextField layoutX="645.0" layoutY="467.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
       <Separator layoutX="611.0" layoutY="10.0" orientation="VERTICAL" prefHeight="557.0" prefWidth="6.0" />
       <ComboBox fx:id="combo4" editable="true" layoutX="22.0" layoutY="502.0" onAction="#populateList" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
       <ComboBox fx:id="combo2" disable="true" editable="true" layoutX="23.0" layoutY="389.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
-      <Label layoutX="228.0" layoutY="25.0" prefHeight="26.0" prefWidth="210.0" text="Manipulação das Imagens">
+      <Label layoutX="228.0" layoutY="25.0" prefHeight="26.0" prefWidth="373.0" text="Manipulação das Imagens">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -45,14 +45,14 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Label>
-      <ComboBox fx:id="combo3" editable="true" layoutX="32.0" layoutY="290.0" onAction="#populateList" prefHeight="25.0" prefWidth="149.0" promptText="Selecione o Album" />
+      <ComboBox fx:id="combo3" editable="true" layoutX="32.0" layoutY="279.0" prefHeight="25.0" prefWidth="149.0" promptText="Selecione o Album" />
       <Label layoutX="14.0" layoutY="466.0" prefHeight="17.0" prefWidth="116.0" text="Exportar Album" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Label>
       <Separator layoutX="14.0" layoutY="51.0" prefHeight="17.0" prefWidth="1065.0" />
       <Label layoutX="373.0" layoutY="109.0" prefHeight="25.0" prefWidth="224.0" text="Escolha o Album ou selecione as imagens:" />
-      <Label layoutX="799.0" layoutY="25.0" text="Pre-visualização">
+      <Label layoutX="799.0" layoutY="25.0" prefHeight="26.0" prefWidth="280.0" text="Pre-visualização">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -66,10 +66,9 @@
       <Label layoutX="645.0" layoutY="415.0" prefHeight="17.0" prefWidth="373.0" text="Selecione o Album:" />
       <ListView fx:id="list" layoutX="373.0" layoutY="195.0" prefHeight="330.0" prefWidth="200.0" />
       <Button layoutX="373.0" layoutY="537.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Exportar HTML" />
-      <Button fx:id="btnteste" layoutX="182.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Inserir" />
-      <ListView fx:id="getItens" layoutX="32.0" layoutY="219.0" prefHeight="69.0" prefWidth="149.0" />
-      <TextField layoutX="182.0" layoutY="190.0" promptText="Nome da Imagem" />
-      <TextField layoutX="182.0" layoutY="219.0" prefHeight="69.0" prefWidth="149.0" promptText="Descrição" />
+      <Button fx:id="btnteste" layoutX="182.0" layoutY="279.0" mnemonicParsing="false" onAction="#insertImage" prefHeight="25.0" prefWidth="149.0" text="Inserir" />
+      <TextField fx:id="txtImageName" layoutX="31.0" layoutY="221.0" prefHeight="25.0" prefWidth="298.0" promptText="Nome da Imagem" />
+      <TextField fx:id="txtImageDesc" layoutX="31.0" layoutY="249.0" prefHeight="26.0" prefWidth="298.0" promptText="Descrição" />
       <ComboBox fx:id="combo1" editable="true" layoutX="24.0" layoutY="357.0" onAction="#popCombo2" prefHeight="25.0" prefWidth="307.0" promptText="Album" />
       <TextField fx:id="getAlbumName" layoutX="32.0" layoutY="90.0" promptText="Nome do album" />
       <Button layoutX="182.0" layoutY="118.0" mnemonicParsing="false" onAction="#newAlbum" prefHeight="25.0" prefWidth="149.0" text="Adicionar Album" />
@@ -78,7 +77,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="952.0" layoutY="498.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesquisar por Desc." />
+      <Button layoutX="952.0" layoutY="498.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesq. Descr." />
       <TextField layoutX="645.0" layoutY="498.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" />
       <ComboBox fx:id="combo" editable="true" layoutX="373.0" layoutY="149.0" onAction="#populateList" prefHeight="25.0" prefWidth="200.0" promptText="Albuns" />
       <Label layoutX="818.0" layoutY="443.0" text="1" />
@@ -87,6 +86,11 @@
       <Button layoutX="902.0" layoutY="439.0" mnemonicParsing="false" text="/\" />
       <Button layoutX="935.0" layoutY="439.0" mnemonicParsing="false" text="\\/" />
       <TextField fx:id="getAlbumDesc" layoutX="32.0" layoutY="118.0" promptText="Desc. do Album" />
+      <Label fx:id="lImageName" layoutX="151.0" layoutY="190.0" prefHeight="26.0" prefWidth="180.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
       
    </children>
 </AnchorPane>
