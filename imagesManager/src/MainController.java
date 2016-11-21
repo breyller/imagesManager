@@ -26,22 +26,13 @@ import javafx.scene.control.TextField;
 public class MainController implements Initializable {
 
     public static final String directory = "src/Img/";
-    public int count = 0;
-    
-    /*Popular combo albuns*/    
-    //@FXML
-    //public ComboBox<String> albuns;
-    
+    public int count = 0;  
     DbManipulate bancoDados = new DbManipulate();
     ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
     ArrayList<String> nomesAlbuns = null;
             
-    //for(Album alb : arAlbuns) {
-    //    nomesAlbuns.add(alb.getTitle());
-    //}
-    //ObservableList<String> comboData = FXCollections.observableArrayList(nomesAlbuns);
     
-    /*Popular lista*/
+    /*Inicialização*/
 
     @FXML
     public ComboBox<String> combo1; 
@@ -108,32 +99,10 @@ public class MainController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Falha ao inserir album!");
             alert.showAndWait();
-            
-
-            //newAlbum(null);
             }
         }
     }
-    
-    public void popCombo2(ActionEvent listComboData){
-        DbManipulate bancoDados = new DbManipulate();
-        ArrayList<String> nomesImagens = new ArrayList<String>();
-        ArrayList<Imagem> arImagens = bancoDados.getAllImages();
-        
-        for(int i = 0; i < arImagens.size(); i++){
-            nomesImagens.add(arImagens.get(i).getTitle());
-        }
-
-        ObservableList<String> comboData = FXCollections.observableArrayList(nomesImagens);
-            String out = combo1.getValue();
-            if (out != null){
-                combo2.setDisable(false);
-                combo2.getItems().clear(); 
-                combo2.setItems(comboData);
-            }
-    }
-    
-                 
+      
     public void populateComboList(ActionEvent listComboData){
         DbManipulate bancoDados = new DbManipulate();
         ArrayList<String> nomesAlbuns = new ArrayList<String>();
@@ -161,9 +130,61 @@ public class MainController implements Initializable {
         
     }
     
+        public void popCombo2(ActionEvent listComboData){
+        DbManipulate bancoDados = new DbManipulate();
+        ArrayList<String> nomesImagens = new ArrayList<String>();
+        ArrayList<Imagem> arImagens = bancoDados.getAllImages();
+        
+        for(int i = 0; i < arImagens.size(); i++){
+            nomesImagens.add(arImagens.get(i).getTitle());
+        }
+
+        ObservableList<String> comboData = FXCollections.observableArrayList(nomesImagens);
+            String out = combo1.getValue();
+            if (out != null){
+                combo2.setDisable(false);
+                combo2.getItems().clear(); 
+                combo2.setItems(comboData);
+            }
+    }
+        
+    @FXML
+    public TextField txtImagePath;
+    
+    /*Exportar imagem*/
+    public void exportImage(ActionEvent listData){
+        if (combo1.getValue() == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Escolha o album!");
+            alert.showAndWait();
+        } else if (combo2.getValue() == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Escolha a imagem!");
+            alert.showAndWait();
+        } else if (txtImagePath.getText() == null || txtImagePath.getText().trim().isEmpty()){    
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Escolha o diretório!");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Imagem exportada com sucesso!");
+            alert.showAndWait();
+            combo1.setValue(null);
+            combo2.setValue(null);
+        }
+    }
+    
+    /*Popular lista*/    
     @FXML
     public Button btnteste;
-    /*Popular lista*/
     @FXML
     public ComboBox<String> combo;
     @FXML
@@ -208,6 +229,8 @@ public class MainController implements Initializable {
         text.setText(Titulo);
     }
      
+    
+    /*Inserir imagem*/
     @FXML
     public Button btninsertImage;
     @FXML
@@ -268,6 +291,35 @@ public class MainController implements Initializable {
             txtImageName.setText("");
             txtImageDesc.setText("");
             combo3.setValue(null);
+        }
+    }
+    
+    /*Exportar Album*/
+    @FXML
+    public TextField txtAlbumName;
+    
+    public void exportAlbum(ActionEvent event){
+        if (combo4.getValue() == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Escolha o album!");
+            alert.showAndWait();
+        } else if (txtAlbumName.getText() == null || txtAlbumName.getText().trim().isEmpty()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Insira o destino do Album!");
+            alert.showAndWait();
+        } else {
+            //System.out.println(combo3.getValue());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Album exportado com sucesso!");
+            alert.showAndWait();
+            combo4.setValue(null);
+            txtAlbumName.setText("");
         }
     }
 }

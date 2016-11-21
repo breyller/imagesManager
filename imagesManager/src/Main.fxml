@@ -21,22 +21,22 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="272.0" layoutY="537.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
-      <Button layoutX="272.0" layoutY="421.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
+      <Button layoutX="272.0" layoutY="537.0" mnemonicParsing="false" onAction="#exportAlbum" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
+      <Button layoutX="272.0" layoutY="421.0" mnemonicParsing="false" onAction="#exportImage" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
       <Button fx:id="btninsertImage" layoutX="32.0" layoutY="190.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="25.0" prefWidth="116.0" text="Selec. Imagem" />
       <Button layoutX="952.0" layoutY="467.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesq. Nome" />
-      <ComboBox fx:id="combo5" editable="true" layoutX="645.0" layoutY="439.0" onAction="#populateList" prefHeight="25.0" prefWidth="143.0" promptText="Albuns" />
+      <ComboBox fx:id="combo5" editable="true" layoutX="645.0" layoutY="439.0" prefHeight="25.0" prefWidth="143.0" promptText="Albuns" />
       <TextField layoutX="645.0" layoutY="467.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
       <Separator layoutX="611.0" layoutY="10.0" orientation="VERTICAL" prefHeight="557.0" prefWidth="6.0" />
-      <ComboBox fx:id="combo4" editable="true" layoutX="22.0" layoutY="502.0" onAction="#populateList" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
+      <ComboBox fx:id="combo4" editable="true" layoutX="22.0" layoutY="502.0" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
       <ComboBox fx:id="combo2" disable="true" editable="true" layoutX="23.0" layoutY="389.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
       <Label layoutX="228.0" layoutY="25.0" prefHeight="26.0" prefWidth="373.0" text="Manipulação das Imagens">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <TextField layoutX="22.0" layoutY="421.0" prefHeight="25.0" prefWidth="246.0" promptText="Insira o diretorio Destino" />
-      <TextField layoutX="22.0" layoutY="537.0" prefHeight="25.0" prefWidth="246.0" promptText="Insira o diretorio Destino" />
+      <TextField fx:id="txtImagePath" layoutX="22.0" layoutY="421.0" prefHeight="25.0" prefWidth="246.0" promptText="Insira o diretorio Destino" />
+      <TextField fx:id="txtAlbumName" layoutX="22.0" layoutY="537.0" prefHeight="25.0" prefWidth="246.0" promptText="Insira o diretorio Destino" />
       <Label layoutX="14.0" layoutY="331.0" text="Exportar Imagem" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />
@@ -79,7 +79,7 @@
       </Label>
       <Button layoutX="952.0" layoutY="498.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesq. Descr." />
       <TextField layoutX="645.0" layoutY="498.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" />
-      <ComboBox fx:id="combo" editable="true" layoutX="373.0" layoutY="149.0" onAction="#populateList" prefHeight="25.0" prefWidth="200.0" promptText="Albuns" />
+      <ComboBox fx:id="combo" editable="true" layoutX="373.0" layoutY="149.0" prefHeight="25.0" prefWidth="200.0" promptText="Albuns" />
       <Label layoutX="818.0" layoutY="443.0" text="1" />
       <Label layoutX="850.0" layoutY="443.0" text="de" />
       <Label layoutX="880.0" layoutY="443.0" text="20" />
