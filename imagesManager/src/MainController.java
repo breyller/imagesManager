@@ -322,4 +322,29 @@ public class MainController implements Initializable {
             txtAlbumName.setText("");
         }
     }
+    
+    /*Exportar Album*/
+    @FXML
+    
+    
+    public void exportHTML(ActionEvent event){
+        if (combo.getValue() == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Escolha o album!");
+            alert.showAndWait();
+        } else {
+            //System.out.println(combo3.getValue());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("HTML com albun(s) exportado com sucesso!");
+            alert.showAndWait();
+            combo.setValue(null);
+            list.setItems(null);
+        }
+    }
+    
+    
 }
