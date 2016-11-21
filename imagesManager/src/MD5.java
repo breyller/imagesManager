@@ -9,6 +9,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.DatatypeConverter;
 
+/*
+*
+* @author Bruno Lopes
+* @author Bruno Reyller
+* @author Henrique
+* Gera uma Hash usando uma string baseada no arquivo sendo usado, a hash se baseia em seu nome
+* @param texto - Nome do arquivo, ou outra string relacionado ao mesmo
+* @return retorno - String com a hash
+*/
 public class MD5 
 {
     public static String gerarMD5(String texto)
@@ -28,7 +37,7 @@ public class MD5
     
     /*
     * Gera uma Hash usando o arquivo de tipo File sendo usado, a hash se baseia em seus Bytes
-    * @param arquivo
+    * @param arquivo - Arquivo tipo File sendo usado em que a hash sera baseada
     * @return retorno - String com a hash em Hexadecimal
     */
     public static String gerarMD5 (File arquivo) //Achei mais pratico passar o arquivo pra gerar a hash

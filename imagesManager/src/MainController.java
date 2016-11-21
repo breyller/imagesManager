@@ -28,6 +28,13 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.TextField;
 import static sun.font.LayoutPathImpl.getPath;
 
+    /**
+    * Classe controladora principal; controla as ações pela interface gráfica usando métodos de outras classes.
+    * 
+    * @author Bruno Lopes
+    * @author Bruno Reyller
+    * @author Henrique
+    */
 
 public class MainController implements Initializable {
 
@@ -366,6 +373,15 @@ public class MainController implements Initializable {
         //Inserindo arquivo da imagem no repositorio local
         mani.writeImage(/*origem*/img, /*destino*/"/src/Img/"); // Salva a imagem no local desejado
         
+        if (combo3.getValue() !=  " ") //poe a imagem no album selecionado
+        {
+            int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
+            bancoDados.setImageOnAlbum( imgId, albId); //Coloca a imagem no album selecionado
+        }
+        else //poe a imagem no album TodasAsImagens
+        {
+            bancoDados.setImageOnAlbum( imgId, 0); // ID 0 de albuns é todas as imagens
+        }
     }
     
     /*Exportar Album*/

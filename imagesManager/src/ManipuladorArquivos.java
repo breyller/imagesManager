@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /*
+* @author Bruno Lopes
 * @author Bruno Reyller
-* @author Bruno Fernandes
 * @author Henrique
-*
+
 * Classe usada para manipulação de arquivos no repositório local.
 *
 */
