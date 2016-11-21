@@ -45,33 +45,39 @@ public class ManipuladorArquivos implements IPersistencia{
         return true;
     }
 
-    public void writeImage(String enderecoAbsoluto, String nomeArquivo) throws IOException {
-        String enderecoLocal = directory + nomeArquivo;
-
-        if (enderecoLocal.equals(enderecoAbsoluto)) //checks to see if they are not the same arguments
-        {
-            System.err.println("Nome ja existente!");
-            System.exit(0);
-        }
+    public void writeImage(/*String enderecoAbsoluto*/ File origem, String nomeArquivo) throws IOException 
+    {
+        String nome = origem.getName();
+        String enderecoLocal = nomeArquivo + nome;
+//
+//        if (enderecoLocal.equals(origem.getAbsolutePath())) //checks to see if they are not the same arguments
+//        {
+//            System.err.println("Nome ja existente!");
+//            System.exit(0);
+//        }
 
         /*Receives and checks files and destinations*/
-        File source = new File(enderecoAbsoluto); //receives the file location from the argument lines
+        File source = origem; //receives the file from the argument lines
         File dest = new File(enderecoLocal); //receives the file destination from the argument lines
 
         //Compares if the images are equal (should be changed later to compare to ALL images on the folder
-        Path caminho1 = Paths.get(enderecoAbsoluto);
-        Path caminho2 = Paths.get(enderecoLocal);
-        boolean igual = compararArquivos(caminho1, caminho2);
-
-        if (igual == true) {
-            System.out.println("Imagem ja existente!");
-        } else {
+//        Path caminho1 = Paths.get(origem.getAbsolutePath());
+//        Path caminho2 = Paths.get(enderecoLocal);
+//        boolean igual = compararArquivos(caminho1, caminho2);
+//
+//        if (igual == true) 
+//        {
+//            System.out.println("Imagem ja existente!");
+//        } 
+//        else 
+//        {
             /*Initializes streams*/
             InputStream input = null; //initializes the input stream
             OutputStream output = null; //initializes the output stream
 
             /*Starts to copy the files*/
-            try {
+            try 
+            {
 
                 long startTime = System.currentTimeMillis(); //Timer
                 input = new FileInputStream(source); //Input will be the source file
@@ -85,7 +91,8 @@ public class ManipuladorArquivos implements IPersistencia{
                 }
 
                 System.out.println("Time: " + (System.currentTimeMillis() - startTime)); //Displays time spent in the copy operation
-            } /*Exception handling*/ catch (FileNotFoundException fnfe) {
+            } /*Exception handling*/ catch (FileNotFoundException fnfe) 
+            {
                 System.err.println("File was not found");
             } /*Always closes the streams after the try*/ finally //Closes the input and output stream
             {
@@ -99,7 +106,7 @@ public class ManipuladorArquivos implements IPersistencia{
                 }
             }
             System.out.println("Done");
-        }
+//        }
     }
 
     public void updateImage(String enderecoNovo, String nomeArquivo) throws IOException {
