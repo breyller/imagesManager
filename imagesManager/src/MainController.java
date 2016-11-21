@@ -2,7 +2,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -28,8 +32,11 @@ import static sun.font.LayoutPathImpl.getPath;
 public class MainController implements Initializable {
 
     public static final String directory = "src/Img/";
-    public int count = 0;  
+    public int count = 0; 
+    
     DbManipulate bancoDados = new DbManipulate();
+    ManipuladorArquivos mani = new ManipuladorArquivos();
+    MD5 md5 = new MD5();
     ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
     ArrayList<String> nomesAlbuns = null;
             
@@ -53,7 +60,7 @@ public class MainController implements Initializable {
     @FXML
     public ComboBox<String> combo4;
     @FXML
-    public ComboBox<String> combo5;    
+    public ComboBox<String> combo5;
     
     public void initialize(URL url, ResourceBundle resource){
         populateComboList(null);
@@ -161,22 +168,25 @@ public class MainController implements Initializable {
     @FXML
     public TextField txtImagePath;
     
-    /*Exportar imagem*/
-    public void exportImage(ActionEvent listData)
+    /**
+     * Funcao de exportar a imagem do BD para o repositorio local escolhido pelo usuário
+     * @param Action - apertar do botao exportar imagem
+     */
+    public void exportImage(ActionEvent listData) throws IOException
     {
         Imagem imgOrigem = null; // Inicializa uma instancia de Imagem
-        
         for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
         {
             if (combo2.getValue().equals(bancoDados.getAllImages().get(i).getTitle())); // para na com titulo igual
             {
-                imgOrigem = bancoDados.getAllImages().get(i); // Recebe a imagem selecionada pelo if
+                imgOrigem = bancoDados.getAllImages().get(i); // Recebe o objeto Imagem da imagem selecionada pelo if
             }
         }    
+        String endOrigem = imgOrigem.getPath(); //Null pointer não sei porque...
         String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
-        // File origem = img.getFile(); // Precisa ser implementado na classe imagem depois do DB guardar as imagens
-        // IMPORTANTE: Para isso ser implementado a imagem precisa estar realmente dentro do DB e a classe Imagem deve ter uma Image dentro dela
-        // mani.writeImage(origem, destino);
+        File origem = new File(endOrigem); //receives the file destination from the argument lines
+        
+        mani.writeImage(origem, destino); // Salva a imagem no local desejado
 
         
         
@@ -292,9 +302,14 @@ public class MainController implements Initializable {
 //        }
     } 
     
-    public void insertImage(ActionEvent event){
     
-        
+    /**
+     * Insere Objeto Imagem no BD e uma File da imagem desejada no repositorio local
+     * @param event - Evento de apertar o botão
+     */
+    public void insertImage(ActionEvent event) throws NoSuchAlgorithmException, IOException 
+    {
+        // Tratamento de falhas na interface
         if (lImageName.getText() == null || lImageName.getText().trim().isEmpty()){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
@@ -324,6 +339,24 @@ public class MainController implements Initializable {
             txtImageName.setText("");
             txtImageDesc.setText("");
             combo3.setValue(null);
+        }
+        
+        Imagem imgInserida = null; //Objeto Imagem a ser inserido //Imagem(String desc, String title, String path, String hash, int id)
+         //Inicializando variaveis que serao colocadas na 
+        File img = null;
+        String imgDesc = null;
+        String imgTitle = null;
+        String imgPath = null;
+        String imgHash = null;
+        int imgId = 0;
+        
+        imgDesc = txtImageDesc.getText();
+        imgTitle = txtImageName.getText();
+        imgPath = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+        imgHash = md5.gerarMD5(img);
+        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
+        {
+            imgId = bancoDados.getAllImages().get(i).getId() + 1; // Recebe a ultima id e adiciona 1
         }
     }
     

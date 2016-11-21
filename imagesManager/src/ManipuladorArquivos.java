@@ -156,7 +156,7 @@ public class ManipuladorArquivos implements IPersistencia{
     }
 
     public void listContent() {
-        File f = new File("C:\\Test\\");
+        File f = new File(directory);
         ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
     }
 
