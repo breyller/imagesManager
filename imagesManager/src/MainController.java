@@ -134,7 +134,7 @@ public class MainController implements Initializable {
         public void popCombo2(ActionEvent listComboData){
         DbManipulate bancoDados = new DbManipulate();
         ArrayList<String> nomesImagens = new ArrayList<String>();
-        ArrayList<Imagem> arImagens = bancoDados.getAllImages();
+        ArrayList<Imagem> arImagens = bancoDados.getAllImages(); //se eu listo todas as imagens, porque eu escolho o album?
         
         for(int i = 0; i < arImagens.size(); i++){
             nomesImagens.add(arImagens.get(i).getTitle());
@@ -153,7 +153,24 @@ public class MainController implements Initializable {
     public TextField txtImagePath;
     
     /*Exportar imagem*/
-    public void exportImage(ActionEvent listData){
+    public void exportImage(ActionEvent listData)
+    {
+        Imagem imgOrigem = null; // Inicializa uma instancia de Imagem
+        
+        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
+        {
+            if (combo2.getValue().equals(bancoDados.getAllImages().get(i).getTitle())); // para na com titulo igual
+            {
+                imgOrigem = bancoDados.getAllImages().get(i); // Recebe a imagem selecionada pelo if
+            }
+        }    
+        String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
+        // File origem = img.getFile(); // Precisa ser implementado na classe imagem depois do DB guardar as imagens
+        // IMPORTANTE: Para isso ser implementado a imagem precisa estar realmente dentro do DB e a classe Imagem deve ter uma Image dentro dela
+        // mani.writeImage(origem, destino);
+
+        
+        
         if (combo1.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
