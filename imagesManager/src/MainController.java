@@ -1,5 +1,6 @@
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,11 +66,11 @@ public class MainController implements Initializable {
         boolean retorno = false;
         
         
-        if (getAlbumName.getText() == null || getAlbumName.getText().trim().isEmpty() || getAlbumDesc.getText() == null || getAlbumDesc.getText().trim().isEmpty()) {
-            System.out.println("textField is empty");
-        }else{
-            System.out.println("textField is not empty");
-        } 
+//        if (getAlbumName.getText() == null || getAlbumName.getText().trim().isEmpty() || getAlbumDesc.getText() == null || getAlbumDesc.getText().trim().isEmpty()) {
+//            System.out.println("textField is empty");
+//        }else{
+//            System.out.println("textField is not empty");
+//        } 
         
         if (getAlbumName.getText() == null || getAlbumName.getText().trim().isEmpty() || getAlbumDesc.getText() == null || getAlbumDesc.getText().trim().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
@@ -91,7 +92,7 @@ public class MainController implements Initializable {
             alert.showAndWait();
             getAlbumName.setText("");
             getAlbumDesc.setText("");
-            populateComboList(null);
+            //populateComboList(null);
 
             }
             else{
@@ -351,13 +352,15 @@ public class MainController implements Initializable {
     @FXML
     
     
-    public void exportHTML(ActionEvent event){
+    public void exportHTML(ActionEvent event) throws IOException, InterruptedException{
         if (combo.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
             alert.setContentText("Escolha o album!");
             alert.showAndWait();
+            
+
         } else {
             //System.out.println(combo3.getValue());
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -367,7 +370,8 @@ public class MainController implements Initializable {
             alert.showAndWait();
             combo.setValue(null);
             list.setItems(null);
-
+            Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\" C:\\Users\\blopes\\Desktop\\imagesManagerSite\\imagesManagerSite.html");
+            p.waitFor();
         }
     }
     
@@ -419,5 +423,33 @@ public class MainController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText("Posição salva");
         alert.showAndWait();
+    }
+    
+    /*Pesquisa por nome ou descr*/
+    @FXML
+    public TextField txtPesq;
+    
+    public void pesqNome(ActionEvent event){
+        if (txtPesq.getText() == null || txtPesq.getText().trim().isEmpty()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Insira o nome a ser pesquisado!");
+            alert.showAndWait();
+        } else {
+         //conexao com bd e exibir imagem no image view
+        }
+    }
+    
+    public void pesqDesc(ActionEvent event){
+        if (txtPesq.getText() == null || txtPesq.getText().trim().isEmpty()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Insira o texto da descrição a ser pesquisado!");
+            alert.showAndWait();
+        } else {
+         //conexao com bd e exibir imagem no image view
+        }
     }
 }

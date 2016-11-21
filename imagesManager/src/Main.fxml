@@ -24,9 +24,9 @@
       <Button layoutX="272.0" layoutY="537.0" mnemonicParsing="false" onAction="#exportAlbum" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
       <Button layoutX="272.0" layoutY="421.0" mnemonicParsing="false" onAction="#exportImage" prefHeight="25.0" prefWidth="61.0" text="Exportar" />
       <Button fx:id="btninsertImage" layoutX="32.0" layoutY="190.0" mnemonicParsing="false" onAction="#selectImage" prefHeight="25.0" prefWidth="116.0" text="Selec. Imagem" />
-      <Button layoutX="952.0" layoutY="467.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesq. Nome" />
+      <Button layoutX="645.0" layoutY="498.0" mnemonicParsing="false" onAction="#pesqNome" prefHeight="25.0" prefWidth="209.0" text="Pesq. Nome" />
       <ComboBox fx:id="combo5" editable="true" layoutX="645.0" layoutY="439.0" prefHeight="25.0" prefWidth="200.0" promptText="Albuns" />
-      <TextField layoutX="645.0" layoutY="467.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
+      <TextField fx:id="txtPesq" layoutX="645.0" layoutY="467.0" prefHeight="25.0" prefWidth="428.0" promptText="Insira Nome ou Descr." />
       <Separator layoutX="611.0" layoutY="10.0" orientation="VERTICAL" prefHeight="557.0" prefWidth="6.0" />
       <ComboBox fx:id="combo4" editable="true" layoutX="22.0" layoutY="502.0" prefHeight="25.0" prefWidth="307.0" promptText="Selecione o Album" />
       <ComboBox fx:id="combo2" disable="true" editable="true" layoutX="23.0" layoutY="389.0" prefHeight="25.0" prefWidth="307.0" promptText="Imagem" />
@@ -77,8 +77,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="952.0" layoutY="498.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Pesq. Descr." />
-      <TextField layoutX="645.0" layoutY="498.0" prefHeight="25.0" prefWidth="307.0" promptText="Descrição" />
+      <Button layoutX="864.0" layoutY="498.0" mnemonicParsing="false" onAction="#pesqDesc" prefHeight="25.0" prefWidth="209.0" text="Pesq. Descr." />
       <ComboBox fx:id="combo" editable="true" layoutX="373.0" layoutY="149.0" onAction="#populateList" prefHeight="25.0" prefWidth="200.0" promptText="Albuns" />
       <Label fx:id="atualPos" layoutX="876.0" layoutY="440.0" prefHeight="17.0" prefWidth="14.0" text="0" />
       <Label layoutX="894.0" layoutY="440.0" text="de" />
