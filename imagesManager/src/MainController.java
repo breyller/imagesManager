@@ -34,8 +34,16 @@ public class MainController implements Initializable {
     ArrayList<String> nomesAlbuns = null;
             
     
-    /*Inicialização*/
 
+    
+     /**
+    * Inicializa listas a serem exibidas
+    * 
+    * @param URL url   
+    * @param  ResourceBundle resource
+    * @author  Bruno Lopes
+    */
+    
     @FXML
     public ComboBox<String> combo1; 
     @FXML
