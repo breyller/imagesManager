@@ -12,6 +12,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+* @author Bruno Reyller
+* @author Bruno Fernandes
+* @author Henrique
+*
+* Classe usada para manipulação de arquivos no repositório local.
+*
+*/
 public class ManipuladorArquivos implements IPersistencia{
 
     public ManipuladorArquivos() {
@@ -20,8 +28,11 @@ public class ManipuladorArquivos implements IPersistencia{
     public static final int CHUNK = 1024; //Number of bytes to use in the buffer
     public static final String directory = "src/Img/";
 
-    //Funcao para comparar arquivos Byte por Byte
-    //Na testada a fundo, se der ruim foi ela.
+    /** Funcao para comparar arquivos Byte por Byte
+    *   @param arquivo1 - Path do primeiro arquivo a ser comparado
+    *   @param arquivo2 - Path do segundo arquivo a ser comparado 
+    *   @return - Boolean de confirmação
+    */
     public boolean compararArquivos(Path arquivo1, Path arquivo2) throws IOException {
         final long size = Files.size(arquivo1);
         if (size != Files.size(arquivo2)) {
@@ -45,6 +56,10 @@ public class ManipuladorArquivos implements IPersistencia{
         return true;
     }
 
+    /** Função de escrita de arquivo no repositório local
+    * @param origem - Arquivo do tipo file a ser copiado
+    * @param nomeArquivo - local onde o arquivo vai ser colocado
+    */
     public void writeImage(/*String enderecoAbsoluto*/ File origem, String nomeArquivo) throws IOException 
     {
         String nome = origem.getName();
@@ -109,8 +124,12 @@ public class ManipuladorArquivos implements IPersistencia{
 //        }
     }
 
+    /** Função de atualização de arquivo no repositório local
+    * @param enderecoNovo - Arquivo do tipo file a ser colocado no lugar da velha
+    * @param nomeArquivo - Nome do arquivo a ser colocado atualizado
+    */
     public void updateImage(String enderecoNovo, String nomeArquivo) throws IOException {
-        String enderecoLocal = "/home/brunoreyller/NetBeansProjects/imagesManager/src/imagesManager/RepositorioLocal/" + nomeArquivo;
+        String enderecoLocal = "/src/Img" + nomeArquivo;
 
         /*Receives and checks files and destinations*/
         File source = new File(enderecoNovo); //receives the file location from the argument lines
@@ -151,10 +170,16 @@ public class ManipuladorArquivos implements IPersistencia{
         System.out.println("Done");
     }
 
+    /** Função de deleta de arquivo no repositório local
+    * @param nomeArquivo - Arquivo a ser deletado do repositório local
+    */
     public void deleteImage(String nomeArquivo) throws IOException {
 
     }
 
+    /** Função para se listar os arquivos no repositorio local
+     * 
+    */
     public void listContent() {
         File f = new File(directory);
         ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
