@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.security.*;
 import java.math.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +11,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public class MD5 
 {
-    public static String gerarMd5(String texto)
+    public static String gerarMD5(String texto)
     {
         MessageDigest m = null;
         String retorno = null;
@@ -30,17 +31,32 @@ public class MD5
     * @param arquivo
     * @return retorno - String com a hash em Hexadecimal
     */
-    public static String gerarMD5 (File arquivo) throws NoSuchAlgorithmException, IOException
+    public static String gerarMD5 (File arquivo)
     {
-        String path = "/src/Img";
-        MessageDigest md;
-        md = MessageDigest.getInstance("MD5");
-        md.update(Files.readAllBytes(Paths.get(path)));
-        byte[] digest = md.digest();
-
-        String retorno = DatatypeConverter.printHexBinary(digest)/*.toLowerCase()*/;
-        System.out.println(retorno);
+        String retorno = null;
+        MessageDigest md = null;
+        String path = arquivo.getAbsolutePath();
+        Path pathy = Paths.get(path);
+        try 
+        {
+            md = MessageDigest.getInstance("MD5");
+            try
+            {
+                md.update(Files.readAllBytes(pathy));
+            } 
+            catch (IOException ex) 
+            {
+                //Logger.getLogger(TestArea.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            byte[] digest = md.digest();
+            
+            retorno = DatatypeConverter.printHexBinary(digest)/*.toLowerCase()*/;    
+        }
+        catch (NoSuchAlgorithmException ex) 
+        {
+            //Logger.getLogger(TestArea.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return retorno;        
+        return retorno;
     }
 }

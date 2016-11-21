@@ -287,7 +287,7 @@ public class MainController implements Initializable {
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File("src/Img/"));
         File selectedFile = fc.showOpenDialog(null);
-        lImageName.setText(selectedFile.getName());
+        lImageName.setText(selectedFile.getAbsolutePath());
         
        /*Seleção multipla*/
 //        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
@@ -349,7 +349,8 @@ public class MainController implements Initializable {
         String imgPath = null;
         String imgHash = null;
         int imgId = 0;
-        
+        // Preenchendo campos para inserçao de imagem
+        img = new File(lImageName.getText());
         imgDesc = txtImageDesc.getText();
         imgTitle = txtImageName.getText();
         imgPath = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
@@ -358,6 +359,13 @@ public class MainController implements Initializable {
         {
             imgId = bancoDados.getAllImages().get(i).getId() + 1; // Recebe a ultima id e adiciona 1
         }
+        // Instanciando a imagem com todas as informacoes
+        imgInserida = new Imagem(imgDesc, imgTitle, imgPath, imgHash, imgId);
+        //Inserindo objeto Imagem no banco de dados
+        bancoDados.setImage(imgInserida);
+        //Inserindo arquivo da imagem no repositorio local
+        mani.writeImage(/*origem*/img, /*destino*/"/src/Img/"); // Salva a imagem no local desejado
+        
     }
     
     /*Exportar Album*/
