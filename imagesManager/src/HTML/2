@@ -1,0 +1,42 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>Images Manager Site</TITLE>
+
+</HEAD>  
+
+<BODY BGCOLOR="FFFFFF">
+
+<CENTER><IMG SRC="" ALIGN="BOTTOM"> </CENTER>
+
+<HR>
+
+<H1>Images Manager</H1>
+
+<select>
+	<option value="Cidades">Cidade</option>
+	<option value="Peixes">Peixes</option>
+	<option value="Domingo">Domingo</option>
+	<option value="Domingo1">Domingo1</option>
+</select>
+  <br><br>
+  <input type="button" name="selectA" value="Selecionar Album">
+</form>
+<P> <B>Album: Cidades </B>
+
+<HR>
+
+ <B><I>Imagens do album:</I></B>  
+
+<HR>
+
+<img src="C:\Users\blopes\Documents\NetBeansProjects\imagesManager\imagesManager\src\Img\3.jpg" width="300" height="200"/>
+<HR>
+
+<a href="file:///C:/Users/blopes/Desktop/imagesManagerSite/1" ><input type="button" name="ant" value="Anterior"></a>
+<a href="file:///C:/Users/blopes/Desktop/imagesManagerSite/3" ><input type="button" name="prox" value="Proximo" )></a>
+
+</BODY>  
+
+</HTML>
