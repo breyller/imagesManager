@@ -31,7 +31,7 @@ public class MD5
     * @param arquivo
     * @return retorno - String com a hash em Hexadecimal
     */
-    public static String gerarMD5 (File arquivo)
+    public static String gerarMD5 (File arquivo) //Achei mais pratico passar o arquivo pra gerar a hash
     {
         String retorno = null;
         MessageDigest md = null;
