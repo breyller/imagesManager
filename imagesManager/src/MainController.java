@@ -21,6 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.TextField;
+import static sun.font.LayoutPathImpl.getPath;
 
 
 public class MainController implements Initializable {
@@ -215,18 +216,24 @@ public class MainController implements Initializable {
         Image image = null;
         path = new File("src/Img");
         
-        image = new Image("file:///" + path.getAbsolutePath() + "/" + count + ".jpg");
-        teste.setImage(image);
-        count++;
+        //image = new Image("file:///" + path.getAbsolutePath() + "/" + count + ".jpg");
+        //teste.setImage(image);
+        //count++;
             
         if(count == 5){
             count = 0;
         }
+
+        selectTitle = new Imagem("teste", "Dory", "file:///C:\\Users\\Bruno Fernandes\\Documents\\NetBeansProjects\\imagesManager\\imagesManager\\src\\Img\\1.jpg", "12312312312sadd", 1);
         
-        selectTitle = new Imagem("teste", "teste123", "file:///C:\\Users\\b140528.FT.001\\Documents\\NetBeansProjects\\imagesManager\\imagesManager\\src\\Img\\2.jpg", "12312312312sadd", 1);
-                
+        String dir = selectTitle.getPath();
+        image = new Image(dir);
+        teste.setImage(image);
+        
         String Titulo = selectTitle.getTitle();
         text.setText(Titulo);
+        
+        
     }
      
     
@@ -343,8 +350,57 @@ public class MainController implements Initializable {
             alert.showAndWait();
             combo.setValue(null);
             list.setItems(null);
+
         }
     }
     
     
+    /*PRÉ VISUALIZAÇÃO*/
+    /*Array de imagens*/
+    @FXML
+    public Button btnArrayUP;
+    @FXML
+    public Label atualPos;
+    @FXML
+    public Label totalPos;
+    
+    int iAtualPosi = 0;
+    int iTotalPos = 20;
+    
+    String atualPosi;
+    String TotalPos;
+    
+    public void upArrayImage(ActionEvent event){
+        TotalPos = Integer.toString(iTotalPos);
+        totalPos.setText(TotalPos);
+        
+        if (iAtualPosi < iTotalPos){
+            iAtualPosi++;        
+            atualPosi = Integer.toString(iAtualPosi);
+            atualPos.setText(atualPosi);
+        }  else if (iAtualPosi > iTotalPos){
+        }
+        totalPos.setText(TotalPos);
+    }
+                
+    public void downArrayImage(ActionEvent event){
+        TotalPos = Integer.toString(iTotalPos);
+        totalPos.setText(TotalPos);
+        
+        if (iAtualPosi <= iTotalPos && iAtualPosi > 0){
+            iAtualPosi--;        
+            atualPosi = Integer.toString(iAtualPosi);
+            atualPos.setText(atualPosi);
+        } else {
+        }
+        totalPos.setText(TotalPos);
+    }
+    
+    public void savePosImage(ActionEvent event){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Informação");
+        alert.setHeaderText(null);
+        alert.setContentText("Posição salva");
+        alert.showAndWait();
+    }
 }
