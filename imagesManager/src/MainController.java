@@ -6,7 +6,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -28,12 +32,22 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.TextField;
 import static sun.font.LayoutPathImpl.getPath;
 
+    /**
+    * Classe controladora principal; controla as ações pela interface gráfica usando métodos de outras classes.
+    * 
+    * @author Bruno Lopes
+    * @author Bruno Reyller
+    * @author Henrique
+    */
 
 public class MainController implements Initializable {
 
     public static final String directory = "src/Img/";
-    public int count = 0;  
+    public int count = 0; 
+    
     DbManipulate bancoDados = new DbManipulate();
+    ManipuladorArquivos mani = new ManipuladorArquivos();
+    MD5 md5 = new MD5();
     ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
     ArrayList<String> nomesAlbuns = null;
             
@@ -57,7 +71,7 @@ public class MainController implements Initializable {
     @FXML
     public ComboBox<String> combo4;
     @FXML
-    public ComboBox<String> combo5;    
+    public ComboBox<String> combo5;
     
     public void initialize(URL url, ResourceBundle resource){
         populateComboList(null);
@@ -165,22 +179,25 @@ public class MainController implements Initializable {
     @FXML
     public TextField txtImagePath;
     
-    /*Exportar imagem*/
-    public void exportImage(ActionEvent listData)
+    /**
+     * Funcao de exportar a imagem do BD para o repositorio local escolhido pelo usuário
+     * @param Action - apertar do botao exportar imagem
+     */
+    public void exportImage(ActionEvent listData) throws IOException
     {
         Imagem imgOrigem = null; // Inicializa uma instancia de Imagem
-        
         for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
         {
             if (combo2.getValue().equals(bancoDados.getAllImages().get(i).getTitle())); // para na com titulo igual
             {
-                imgOrigem = bancoDados.getAllImages().get(i); // Recebe a imagem selecionada pelo if
+                imgOrigem = bancoDados.getAllImages().get(i); // Recebe o objeto Imagem da imagem selecionada pelo if
             }
         }    
+        String endOrigem = imgOrigem.getPath(); //Null pointer não sei porque...
         String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
-        // File origem = img.getFile(); // Precisa ser implementado na classe imagem depois do DB guardar as imagens
-        // IMPORTANTE: Para isso ser implementado a imagem precisa estar realmente dentro do DB e a classe Imagem deve ter uma Image dentro dela
-        // mani.writeImage(origem, destino);
+        File origem = new File(endOrigem); //receives the file destination from the argument lines
+        
+        mani.writeImage(origem, destino); // Salva a imagem no local desejado
 
         
         
@@ -281,7 +298,7 @@ public class MainController implements Initializable {
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File("src/Img/"));
         File selectedFile = fc.showOpenDialog(null);
-        lImageName.setText(selectedFile.getName());
+        lImageName.setText(selectedFile.getAbsolutePath());
         
        /*Seleção multipla*/
 //        List<File> selectedFiles = fc.showOpenMultipleDialog(null);
@@ -296,9 +313,71 @@ public class MainController implements Initializable {
 //        }
     } 
     
-    public void insertImage(ActionEvent event){
     
+    /**
+     * Insere Objeto Imagem no BD e uma File da imagem desejada no repositorio local
+     * @param event - Evento de apertar o botão
+     */
+    public void insertImage(ActionEvent event) throws NoSuchAlgorithmException, IOException 
+    {
+        Imagem imgInserida = null; //Objeto Imagem a ser inserido //Imagem(String desc, String title, String path, String hash, int id)
+         //Inicializando variaveis que serao colocadas na 
+        File img = null;
+        String imgDesc = null;
+        String imgTitle = null;
+        String imgPath = null;
+        String imgHash = null;
+        int imgId = 0;
+        boolean verifica = false;
+        // Preenchendo campos para inserçao de imagem
+        img = new File(lImageName.getText());
+        imgDesc = txtImageDesc.getText();
+        imgTitle = txtImageName.getText();
+        imgPath = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+        imgHash = md5.gerarMD5(img);
+        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada //Eu podia reduzir os SELECTs pro banco recebendo todas as imagens em um ArrayList e usando só ele
+        {
+            if (imgHash == bancoDados.getAllImages().get(i).getHash())
+            {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Informação");
+                alert.setHeaderText(null);
+                alert.setContentText("Imagem já existente no Banco de Dados");
+                alert.showAndWait();
+            }
+            else
+            {
+                imgId = bancoDados.getAllImages().get(i).getId() + 1; // Recebe a ultima id e adiciona 1
+            }
+        }
+            // Instanciando a imagem com todas as informacoes
+        imgInserida = new Imagem(imgDesc, imgTitle, imgPath, imgHash, imgId);
+        //Inserindo objeto Imagem no banco de dados
+        bancoDados.setImage(imgInserida);
+        //Inserindo arquivo da imagem no repositorio local
+        mani.writeImage(/*origem*/img, /*destino*/"/src/Img/"); // Salva a imagem no local desejado
         
+        if (combo3.getValue() !=  " ") //poe a imagem no album selecionado
+        {
+            int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
+            verifica = bancoDados.setImageOnAlbum( imgId, albId); //Coloca a imagem no album selecionado
+        }
+        else //poe a imagem no album TodasAsImagens
+        {
+            verifica = bancoDados.setImageOnAlbum( imgId, 0); // ID 0 de albuns é todas as imagens
+        }
+        if (verifica = false)
+        {
+            System.out.println(combo3.getValue());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Falha na insercao de imagem no album");
+            alert.showAndWait();
+        }
+        
+        
+        // Tratamento de falhas na interface
         if (lImageName.getText() == null || lImageName.getText().trim().isEmpty()){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
@@ -329,13 +408,34 @@ public class MainController implements Initializable {
             txtImageDesc.setText("");
             combo3.setValue(null);
         }
+        
+        
     }
     
     /*Exportar Album*/
     @FXML
     public TextField txtAlbumName;
+
+    /*
+    * Funcao de exportacao de album, isto e, todas as imagens inseridas dentro do album sao salvas em um repositorio na maquina do usuario
+    * @param event - Botao sendo ativado pelo usuario
+    */
+
     
-    public void exportAlbum(ActionEvent event){      
+    public void exportAlbum(ActionEvent event) throws IOException
+    {
+                
+        // Receber a array list de objetos Imagem do Album; e o endereço onde serão copiadas para
+        String end = txtAlbumName.getText(); //Endereço onde serão salvas as imagens
+        ArrayList<Imagem> imagens = bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getAllImages(); //Recebe as imagens do album selecionado em combo 4; 
+        
+        // Copia as imagens para o local desejado
+        for (int i = 0; i < imagens.size(); i++)
+        {
+            File arquivo = new File(imagens.get(i).getPath()); //Recebe o caminho absoluto da imagem pelo banco e a instancia
+            mani.writeImage(arquivo, end); // Escreve a imagem no diretorio desejado
+        }     
+        
         if (combo4.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
