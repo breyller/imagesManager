@@ -316,38 +316,6 @@ public class MainController implements Initializable {
      */
     public void insertImage(ActionEvent event) throws NoSuchAlgorithmException, IOException 
     {
-        // Tratamento de falhas na interface
-        if (lImageName.getText() == null || lImageName.getText().trim().isEmpty()){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Selecione uma imagem para ser inserida!");
-            alert.showAndWait();
-        } else if (txtImageName.getText() == null || txtImageName.getText().trim().isEmpty() || txtImageDesc.getText() == null || txtImageDesc.getText().trim().isEmpty()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Insira nome e/ou a descrição da Imagem!");
-            alert.showAndWait();
-        } else if (combo3.getValue() == null){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Escolha o album!");
-            alert.showAndWait();
-        } else {
-            System.out.println(combo3.getValue());
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Imagem Inserida com sucesso");
-            alert.showAndWait();
-            lImageName.setText(null);
-            txtImageName.setText("");
-            txtImageDesc.setText("");
-            combo3.setValue(null);
-        }
-        
         Imagem imgInserida = null; //Objeto Imagem a ser inserido //Imagem(String desc, String title, String path, String hash, int id)
          //Inicializando variaveis que serao colocadas na 
         File img = null;
@@ -391,11 +359,42 @@ public class MainController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Falha na insercao de imagem no album");
             alert.showAndWait();
+        }
+        
+        
+        // Tratamento de falhas na interface
+        if (lImageName.getText() == null || lImageName.getText().trim().isEmpty()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Selecione uma imagem para ser inserida!");
+            alert.showAndWait();
+        } else if (txtImageName.getText() == null || txtImageName.getText().trim().isEmpty() || txtImageDesc.getText() == null || txtImageDesc.getText().trim().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Insira nome e/ou a descrição da Imagem!");
+            alert.showAndWait();
+        } else if (combo3.getValue() == null){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Escolha o album!");
+            alert.showAndWait();
+        } else {
+            System.out.println(combo3.getValue());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Imagem Inserida com sucesso");
+            alert.showAndWait();
             lImageName.setText(null);
             txtImageName.setText("");
             txtImageDesc.setText("");
             combo3.setValue(null);
         }
+        
+        
     }
     
     /*Exportar Album*/
