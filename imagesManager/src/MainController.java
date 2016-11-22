@@ -367,12 +367,7 @@ public class MainController implements Initializable {
     public void exportHTML(ActionEvent event) throws IOException, InterruptedException, URISyntaxException{
         
         File path = null;
-        //Image image = null;
         path = new File("src/HTML");
-        //image = new Image("file:///" + path.getAbsolutePath() + "/" + count + ".jpg");
-        //teste.setImage(image);
-        //count++;
-        
         String sDirHTML = new String(path.getAbsolutePath() + "/imagesManagerSite.html");
         URI dirHTML = new URI(sDirHTML);
         //dirHTML = URLEncoder.encode(dirHTML, "UTF-8"); 
