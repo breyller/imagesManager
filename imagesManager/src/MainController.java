@@ -1,7 +1,11 @@
+import java.awt.Desktop;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -331,7 +335,7 @@ public class MainController implements Initializable {
     @FXML
     public TextField txtAlbumName;
     
-    public void exportAlbum(ActionEvent event){
+    public void exportAlbum(ActionEvent event){      
         if (combo4.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
@@ -360,7 +364,19 @@ public class MainController implements Initializable {
     @FXML
     
     
-    public void exportHTML(ActionEvent event) throws IOException, InterruptedException{
+    public void exportHTML(ActionEvent event) throws IOException, InterruptedException, URISyntaxException{
+        
+        File path = null;
+        //Image image = null;
+        path = new File("src/HTML");
+        //image = new Image("file:///" + path.getAbsolutePath() + "/" + count + ".jpg");
+        //teste.setImage(image);
+        //count++;
+        
+        String sDirHTML = new String(path.getAbsolutePath() + "/imagesManagerSite.html");
+        URI dirHTML = new URI(sDirHTML);
+        //dirHTML = URLEncoder.encode(dirHTML, "UTF-8"); 
+        
         if (combo.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
@@ -378,8 +394,17 @@ public class MainController implements Initializable {
             alert.showAndWait();
             combo.setValue(null);
             list.setItems(null);
-            Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\" C:\\Users\\blopes\\Desktop\\imagesManagerSite\\imagesManagerSite.html");
-            p.waitFor();
+            try {
+            Desktop.getDesktop().browse(dirHTML);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            
+            
+            //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\" C:\\Users\\blopes\\Desktop\\imagesManagerSite\\imagesManagerSite.html");
+            System.out.println(dirHTML);
+            //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\"" + dirHTML);
+            //p.waitFor();
         }
     }
     
