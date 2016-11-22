@@ -356,6 +356,7 @@ public class MainController implements Initializable {
         String imgPath = null;
         String imgHash = null;
         int imgId = 0;
+        boolean verifica = false;
         // Preenchendo campos para inserçao de imagem
         img = new File(lImageName.getText());
         imgDesc = txtImageDesc.getText();
@@ -376,11 +377,24 @@ public class MainController implements Initializable {
         if (combo3.getValue() !=  " ") //poe a imagem no album selecionado
         {
             int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
-            bancoDados.setImageOnAlbum( imgId, albId); //Coloca a imagem no album selecionado
+            verifica = bancoDados.setImageOnAlbum( imgId, albId); //Coloca a imagem no album selecionado
         }
         else //poe a imagem no album TodasAsImagens
         {
-            bancoDados.setImageOnAlbum( imgId, 0); // ID 0 de albuns é todas as imagens
+            verifica = bancoDados.setImageOnAlbum( imgId, 0); // ID 0 de albuns é todas as imagens
+        }
+        if (verifica = false)
+        {
+            System.out.println(combo3.getValue());
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Falha na insercao de imagem no album");
+            alert.showAndWait();
+            lImageName.setText(null);
+            txtImageName.setText("");
+            txtImageDesc.setText("");
+            combo3.setValue(null);
         }
     }
     
@@ -388,7 +402,13 @@ public class MainController implements Initializable {
     @FXML
     public TextField txtAlbumName;
     
-    public void exportAlbum(ActionEvent event){
+    
+    /*
+    * Funcao de exportacao de album, isto e, todas as imagens inseridas dentro do album sao salvas em um repositorio na maquina do usuario
+    * @param event - Botao sendo ativado pelo usuario
+    */
+    public void exportAlbum(ActionEvent event) throws IOException
+    {
         if (combo4.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
@@ -411,6 +431,17 @@ public class MainController implements Initializable {
             combo4.setValue(null);
             txtAlbumName.setText("");
         }
+        
+        // Receber a array list de objetos Imagem do Album; e o endereço onde serão copiadas para
+        String end = txtAlbumName.getText(); //Endereço onde serão salvas as imagens
+        ArrayList<Imagem> imagens = bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getAllImages(); //Recebe as imagens do album selecionado em combo 4; 
+        
+        // Copia as imagens para o local desejado
+        for (int i = 0; i < imagens.size(); i++)
+        {
+            File arquivo = new File(imagens.get(i).getPath()); //Recebe o caminho absoluto da imagem pelo banco e a instancia
+            mani.writeImage(arquivo, end); // Escreve a imagem no diretorio desejado
+        }         
     }
     
     /*Exportar Album*/
