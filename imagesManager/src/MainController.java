@@ -331,11 +331,22 @@ public class MainController implements Initializable {
         imgTitle = txtImageName.getText();
         imgPath = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
         imgHash = md5.gerarMD5(img);
-        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
+        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada //Eu podia reduzir os SELECTs pro banco recebendo todas as imagens em um ArrayList e usando só ele
         {
-            imgId = bancoDados.getAllImages().get(i).getId() + 1; // Recebe a ultima id e adiciona 1
+            if (imgHash == bancoDados.getAllImages().get(i).getHash())
+            {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Informação");
+                alert.setHeaderText(null);
+                alert.setContentText("Imagem já existente no Banco de Dados");
+                alert.showAndWait();
+            }
+            else
+            {
+                imgId = bancoDados.getAllImages().get(i).getId() + 1; // Recebe a ultima id e adiciona 1
+            }
         }
-        // Instanciando a imagem com todas as informacoes
+            // Instanciando a imagem com todas as informacoes
         imgInserida = new Imagem(imgDesc, imgTitle, imgPath, imgHash, imgId);
         //Inserindo objeto Imagem no banco de dados
         bancoDados.setImage(imgInserida);
@@ -408,6 +419,18 @@ public class MainController implements Initializable {
     */
     public void exportAlbum(ActionEvent event) throws IOException
     {
+                
+        // Receber a array list de objetos Imagem do Album; e o endereço onde serão copiadas para
+        String end = txtAlbumName.getText(); //Endereço onde serão salvas as imagens
+        ArrayList<Imagem> imagens = bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getAllImages(); //Recebe as imagens do album selecionado em combo 4; 
+        
+        // Copia as imagens para o local desejado
+        for (int i = 0; i < imagens.size(); i++)
+        {
+            File arquivo = new File(imagens.get(i).getPath()); //Recebe o caminho absoluto da imagem pelo banco e a instancia
+            mani.writeImage(arquivo, end); // Escreve a imagem no diretorio desejado
+        }     
+        
         if (combo4.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
@@ -430,17 +453,6 @@ public class MainController implements Initializable {
             combo4.setValue(null);
             txtAlbumName.setText("");
         }
-        
-        // Receber a array list de objetos Imagem do Album; e o endereço onde serão copiadas para
-        String end = txtAlbumName.getText(); //Endereço onde serão salvas as imagens
-        ArrayList<Imagem> imagens = bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getAllImages(); //Recebe as imagens do album selecionado em combo 4; 
-        
-        // Copia as imagens para o local desejado
-        for (int i = 0; i < imagens.size(); i++)
-        {
-            File arquivo = new File(imagens.get(i).getPath()); //Recebe o caminho absoluto da imagem pelo banco e a instancia
-            mani.writeImage(arquivo, end); // Escreve a imagem no diretorio desejado
-        }         
     }
     
     /*Exportar Album*/
