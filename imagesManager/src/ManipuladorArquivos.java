@@ -293,6 +293,11 @@ public class ManipuladorArquivos implements IPersistencia{
     }
 
     @Override
+    /*
+    * Funçao para definir a imagem
+    * @param Imagem img - Objeto imagem a ser definido
+    */
+    
     public boolean setImage(Imagem img) {
         DbManipulate bancoDados = new DbManipulate();
         Imagem consulta = null;
