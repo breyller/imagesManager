@@ -276,7 +276,7 @@ public class ManipuladorArquivos implements IPersistencia{
         
         consulta = bancoDados.getImageByHash(img.getHash());
         
-        if(consulta.getId() != 0){
+        if(consulta != null){
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Informação");
             alert.setHeaderText(null);

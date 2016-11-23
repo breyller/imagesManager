@@ -359,6 +359,7 @@ public class MainController implements Initializable {
 
             //poe a imagem no album selecionado
             if (combo3.getValue() != null){
+                //verificar se está funfando getAlbumByTitle.
                 int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
                 imgIsSet = bancoDados.setImageOnAlbum(imgInserida.getId(), albId); //Coloca a imagem no album selecionado
                 if (imgIsSet == false){
