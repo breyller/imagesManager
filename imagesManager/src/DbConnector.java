@@ -13,9 +13,9 @@ import java.sql.SQLException;
 public class DbConnector {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3146033";
-    private static final String USER = "sql3146033";
-    private static final String PASS = "PClt5wzTHV";
+    private static final String URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3146037";
+    private static final String USER = "sql3146037";
+    private static final String PASS = "HyQKbCmtKK";
     
 //    private static final String DRIVER = "com.mysql.jdbc.Driver";
 //    private static final String URL = "jdbc:mysql://localhost:3306/imagesManager";

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 * @author Henrique
 * Classe Album usada para criar instancias do objeto album, enviar suas informacoes e receber suas mudancas.
 * Um album somente e uma colecao de imagens, nao sendo um tipo de arquivo.
+* @see Imagem
 */
 public class Album {
     Description desc;
@@ -21,10 +22,10 @@ public class Album {
     }
     /*
     Construtor da classe com imagens dentro
-    @param desc - Descriçao do album
-    @param title - Titulo do Album
-    @param id - Chave primaria dentro do banco de dados
-    @param images - Array list de todas as imagens de objeto tipo Imagem que fazem parte deste album
+    @param String desc - Descriçao do album
+    @param String title - Titulo do Album
+    @param int id - Chave primaria dentro do banco de dados
+    @param ArrayList<Imagem> images - Array list de todas as imagens de objeto tipo Imagem que fazem parte deste album
     */
     Album(String desc, String title, int id, ArrayList<Imagem> images){
         this.desc = new Description(desc);
@@ -38,9 +39,9 @@ public class Album {
     }
     /*
     Construtor da classe sobrecarregado sem um array de imagens
-    @param desc - Descriçao do album
-    @param title - Titulo do Album
-    @param id - Chave primaria dentro do banco de dados
+    @param String desc - Descriçao do album
+    @param String title - Titulo do Album
+    @param int id - Chave primaria dentro do banco de dados
     */  
     Album(String desc, String title, int id){
         this.setDescription(desc);
@@ -51,7 +52,7 @@ public class Album {
     }
     /*
     Função para definir as imagens selecionadas dentro do album
-    @param images - Array List com as imagens que se deseja colocar dentro do album
+    @param ArrayList<Imagem> images - Array List com as imagens que se deseja colocar dentro do album
     @return - confirmacao se ocorreu ou nao com sucesso
     */  
     private boolean setImages(ArrayList<Imagem> images){
