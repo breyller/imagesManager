@@ -11,10 +11,15 @@ import java.util.logging.Logger;
 * @author Bruno Reyller
 * @author Henrique
 * Classe que realiza as diversas operações com o banco de dados.
+* @see Imagem
+* @see Album
+* @see DbConnector
 */
 public class DbManipulate implements IPersistencia{
     /*
-    * 
+    * Função pra enviar a imagem usando o identificador desta para seleciona-la no Banco de Dados
+    * @param id - Identificador da Imagem a ser encontrada e enviada
+    * @return - Retorna um Objeto do tipo Imagem da imagem desejada
     */
     public Imagem getImageById(int id){
         Imagem img = null;
@@ -44,7 +49,11 @@ public class DbManipulate implements IPersistencia{
         
         return img;
     }
-
+    /*
+    * Função pra enviar a imagem usando a Hash em MD5 desta para seleciona-la no Banco de Dados
+    * @param hash - Hash da Imagem a ser encontrada e enviada
+    * @return - Retorna um Objeto do tipo Imagem da imagem desejada
+    */
     public Imagem getImageByHash(String hash) {
         Imagem img = null;
         Connection conn = null;
@@ -73,7 +82,11 @@ public class DbManipulate implements IPersistencia{
         
         return img;
     }
-    
+    /*
+    * Função pra enviar a imagem usando o titulo desta para seleciona-la no Banco de Dados
+    * @param title - Titulo ou parte dele da Imagem a ser encontrada e enviada
+    * @return - Retorna uma ArrayList de Objeto do tipo Imagem da imagem desejada, caso haja resultados parciais, vai adicionando todos os resultados a ArrayList
+    */
     public ArrayList<Imagem> getImageByTitle(String title) {
         Imagem img = null;
         Connection conn = null;
@@ -104,7 +117,11 @@ public class DbManipulate implements IPersistencia{
         
         return images;
     }
-
+    /*
+    * Função pra enviar a imagem usando a Hash em MD5 desta para seleciona-la no Banco de Dados
+    * @param hash - Hash da Imagem a ser encontrada e enviada
+    * @return - Retorna um Objeto do tipo Imagem da imagem desejada
+    */
     public Imagem getImageById(int id, int idAlbum) {
         Imagem img = null;
         Connection conn = null;
