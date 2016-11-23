@@ -356,12 +356,14 @@ public class MainController implements Initializable {
         if(verifica){
             boolean imgIsSet = false;
             bdSet = bancoDados.setImage(imgInserida);
-
+                
             //poe a imagem no album selecionado
             if (combo3.getValue() != null){
                 //verificar se está funfando getAlbumByTitle.
                 int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
+                System.out.println("albId: " + albId);
                 imgIsSet = bancoDados.setImageOnAlbum(imgInserida.getId(), albId); //Coloca a imagem no album selecionado
+                System.out.println("imgIsSet: " + imgIsSet);
                 if (imgIsSet == false){
                     System.out.println(combo3.getValue());
                     Alert alert = new Alert(AlertType.ERROR);
@@ -374,29 +376,30 @@ public class MainController implements Initializable {
             }
         }
         else{
-            return;
+//            if(bdSet){
+//            Alert alert = new Alert(AlertType.INFORMATION);
+//            alert.setTitle("Informação");
+//            alert.setHeaderText(null);
+//            alert.setContentText("Imagem Inserida com sucesso");
+//            alert.showAndWait();
+//            lImageName.setText(null);
+//            txtImageName.setText("");
+//            txtImageDesc.setText("");
+//        }
+//        else{
+//            Alert alert = new Alert(AlertType.ERROR);
+//            alert.setTitle("Erro");
+//            alert.setHeaderText(null);
+//            alert.setContentText("Erro ao inserir imagem!");
+//            alert.showAndWait();
+//            lImageName.setText(null);
+//            txtImageName.setText("");
+//            txtImageDesc.setText("");           
+                return;
         }
+        
             
-        if(bdSet){
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Imagem Inserida com sucesso");
-            alert.showAndWait();
-            lImageName.setText(null);
-            txtImageName.setText("");
-            txtImageDesc.setText("");
-        }
-        else{
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText(null);
-            alert.setContentText("Erro ao inserir imagem!");
-            alert.showAndWait();
-            lImageName.setText(null);
-            txtImageName.setText("");
-            txtImageDesc.setText("");            
-        }
+        
     }
     
     /*Exportar Album*/
@@ -565,7 +568,9 @@ public class MainController implements Initializable {
     /*Pesquisa por nome ou descr*/
     @FXML
     public TextField txtPesq;
-    
+    public ArrayList<Imagem> Title;
+    public Imagem img;
+            
     public void pesqNome(ActionEvent event){
         if (txtPesq.getText() == null || txtPesq.getText().trim().isEmpty()){
             Alert alert = new Alert(AlertType.ERROR);
@@ -574,6 +579,39 @@ public class MainController implements Initializable {
             alert.setContentText("Insira o nome a ser pesquisado!");
             alert.showAndWait();
         } else {
+            //receber o nome
+            //enviar para o metodo getImageByTitle
+            //receber imagem do metodo
+            //exibir imagem no teste.
+            String title = txtPesq.getText();
+            
+            //Imagem image<Imagem> = new Imagem();
+            //Title = bancoDados.getImageByTitle(title);
+            //img.getPath();
+            //bancoDados.
+            
+            //teste.setImage(Title);
+            ArrayList< Imagem > consultaImagens = bancoDados.getImageByTitle(title);
+            if(consultaImagens != null){
+                Imagem imgSelecionada = consultaImagens.get(0);
+                //Image imgJava = new Image(imgSelecionada.getPath());
+                Image imgJava = new Image("file:///" + imgSelecionada.getPath());
+                teste.setImage(imgJava);
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Informação");
+                alert.setHeaderText(null);
+                alert.setContentText("Imagem Encontrada!");
+                alert.showAndWait();
+            //
+            }
+            else{
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Informação");
+                alert.setHeaderText(null);
+                alert.setContentText("Imagem nao econtrada!");
+                alert.showAndWait();
+            }
+           // Imagem image = new Image();
          //conexao com bd e exibir imagem no image view
         }
     }
@@ -589,4 +627,7 @@ public class MainController implements Initializable {
          //conexao com bd e exibir imagem no image view
         }
     }
+    
+    
+    
 }

@@ -277,7 +277,7 @@ public class ManipuladorArquivos implements IPersistencia{
         consulta = bancoDados.getImageByHash(img.getHash());
         
         if(consulta != null){
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
             alert.setContentText("Imagem já existente no Banco de Dados");
@@ -290,6 +290,11 @@ public class ManipuladorArquivos implements IPersistencia{
             img.setPath(directory);
             try {
                 this.writeImage(arq, newPath);
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Informação");
+                alert.setHeaderText(null);
+                alert.setContentText("Imagem inserida no Banco de Dados");
+                alert.showAndWait();
                 return true;
             } catch (IOException ex) {
                 Logger.getLogger(ManipuladorArquivos.class.getName()).log(Level.SEVERE, null, ex);
