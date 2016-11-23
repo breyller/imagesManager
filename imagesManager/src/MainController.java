@@ -1,11 +1,14 @@
+
 import java.awt.Desktop;
 import java.awt.event.ActionListener;
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -30,7 +33,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.TextField;
-import static sun.font.LayoutPathImpl.getPath;
+import static jdk.nashorn.tools.ShellFunctions.input;
+
 
     /**
     * Classe controladora principal; controla as ações pela interface gráfica usando métodos de outras classes.
@@ -118,7 +122,7 @@ public class MainController implements Initializable {
             alert.showAndWait();
             getAlbumName.setText("");
             getAlbumDesc.setText("");
-            //populateComboList(null);
+            populateComboList(null);
 
             }
             else{
@@ -244,6 +248,10 @@ public class MainController implements Initializable {
         
         data.add(combo.getValue());
         list.setItems(data);
+    }
+    
+    public void deleteItemList(ActionEvent listData){
+        list.getItems().remove(list.getSelectionModel().getSelectedItem());
     }
     
     /*Botao Sair*/
@@ -466,11 +474,17 @@ public class MainController implements Initializable {
     
     public void exportHTML(ActionEvent event) throws IOException, InterruptedException, URISyntaxException{
         
-        File path = null;
-        path = new File("src/HTML");
-        String sDirHTML = new String(path.getAbsolutePath() + "/imagesManagerSite.html");
-        URI dirHTML = new URI(sDirHTML);
+        //File path = new File("src/HTML").toURI().toURL();
+        
+        
+        //String sDirHTML = new String(path.getAbsolutePath() + "/imagesManagerSite.html");
+        //URI dirHTML = new URI(sDirHTML);
         //dirHTML = URLEncoder.encode(dirHTML, "UTF-8"); 
+        //URI u = path.toURI();
+        //URI u = path.toURI();
+        
+        //URL url = new URL("http://www.google.com"); //Some instantiated URL object
+        //URI uri = url.toURI();
         
         if (combo.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
@@ -489,15 +503,16 @@ public class MainController implements Initializable {
             alert.showAndWait();
             combo.setValue(null);
             list.setItems(null);
-            try {
-            Desktop.getDesktop().browse(dirHTML);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            
+//            try {
+//            Desktop.getDesktop().browse(uri);
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
             
             
             //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\" C:\\Users\\blopes\\Desktop\\imagesManagerSite\\imagesManagerSite.html");
-            System.out.println(dirHTML);
+         //   System.out.println(dirHTML);
             //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\"" + dirHTML);
             //p.waitFor();
         }
