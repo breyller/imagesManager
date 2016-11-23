@@ -272,11 +272,11 @@ public class MainController implements Initializable {
             count = 0;
         }
 
-        selectTitle = new Imagem("teste", "Dory", "file:///C:\\Users\\Bruno Fernandes\\Documents\\NetBeansProjects\\imagesManager\\imagesManager\\src\\Img\\1.jpg", "12312312312sadd", 1);
+        //selectTitle = new Imagem("teste", "Dory", "file:///C:\\Users\\Bruno Fernandes\\Documents\\NetBeansProjects\\imagesManager\\imagesManager\\src\\Img\\1.jpg", "12312312312sadd", 1);
         
-        String dir = selectTitle.getPath();
-        image = new Image(dir);
-        teste.setImage(image);
+        //String dir = selectTitle.getPath();
+        //image = new Image(dir);
+        //teste.setImage(image);
         
         String Titulo = selectTitle.getTitle();
         text.setText(Titulo);
@@ -592,10 +592,13 @@ public class MainController implements Initializable {
             
             //teste.setImage(Title);
             ArrayList< Imagem > consultaImagens = bancoDados.getImageByTitle(title);
+            File path = new File("src/Img");
             if(consultaImagens != null){
                 Imagem imgSelecionada = consultaImagens.get(0);
                 //Image imgJava = new Image(imgSelecionada.getPath());
-                Image imgJava = new Image("file:///" + imgSelecionada.getPath());
+                Image imgJava = new Image("file:///" + path.getAbsolutePath() + "/" +  imgSelecionada.getPath());
+                System.out.println("file:///" + path.getAbsolutePath() + "/" + imgSelecionada.getPath());
+                //teste.seti
                 teste.setImage(imgJava);
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Informação");
