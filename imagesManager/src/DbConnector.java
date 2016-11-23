@@ -12,10 +12,15 @@ import java.sql.SQLException;
 */
 public class DbConnector {
 
-    private static final String DRIVER = "com.mysql.jdbc.Driver"; /* Trava o driver para conexao com banco de dados (Usando para testes) */
-    private static final String URL = "jdbc:mysql://db4free.net:3306/imagesmanager"; /* Trava o endereco do banco de dados (Usando para testes) */
-    private static final String USER = "im_user"; /* Trava o usuario do baco de dados (Usando para testes) */
-    private static final String PASS = "12345!@#$%"; /* Trava a senha do usuario do banco de dados (Usando para testes) */
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3146033";
+    private static final String USER = "sql3146033";
+    private static final String PASS = "PClt5wzTHV";
+    
+//    private static final String DRIVER = "com.mysql.jdbc.Driver";
+//    private static final String URL = "jdbc:mysql://localhost:3306/imagesManager";
+//    private static final String USER = "root";
+//    private static final String PASS = "root";
     
     /*
     * Classe que envia os dados de conexao

@@ -310,7 +310,7 @@ public class ManipuladorArquivos implements IPersistencia{
             String imgNewName = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
             File arq = new File(img.getPath());
             String newPath = directory + imgNewName;
-            img.setPath(directory);
+            img.setPath(newPath);
             try {
                 this.writeImage(arq, newPath);
                 Alert alert = new Alert(AlertType.INFORMATION);

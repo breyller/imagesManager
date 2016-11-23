@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang3.StringUtils;
 
 /*
 * @author Bruno Lopes
@@ -446,10 +447,9 @@ public class DbManipulate implements IPersistencia{
         try {
             conn = DbConnector.getConnection();
             
-            stmt = conn.prepareStatement("SELECT * FROM fotos WHERE title LIKE ?");
+            stmt = conn.prepareStatement("SELECT * FROM album WHERE title LIKE ?");
             stmt.setString(1, "%"+title+"%");
             rs = stmt.executeQuery();
-            
             while(rs.next()){
                 alb = new Album(rs.getString("description"), rs.getString("title"), rs.getInt("idAlbum"));
                 albumns.add(alb);
@@ -564,20 +564,20 @@ public class DbManipulate implements IPersistencia{
         
         try {
             conn = DbConnector.getConnection();
-            int order = 0;
+            int ordem = 0;
             stmt2 = conn.prepareStatement("SELECT COUNT(*) AS qtd_fotos FROM album_fotos WHERE id_album = ?");
             stmt2.setInt(1, idAlbum);
             rs = stmt2.executeQuery();
             
             while(rs.next()){
-                order = rs.getInt("qtd_fotos");
-                order = order + 1;
+                ordem = rs.getInt("qtd_fotos");
+                ordem = ordem + 1;
             }
             
-            stmt = conn.prepareStatement("INSERT INTO album_fotos(id_album, id_foto, order) VALUES (?,?,?)");
+            stmt = conn.prepareStatement("INSERT INTO album_fotos(id_album, id_foto, ordem) VALUES (?,?,?)");
             stmt.setInt(1, idAlbum);
             stmt.setInt(2, idImage);
-            stmt.setInt(3, order);
+            stmt.setInt(3, ordem);
             stmt.executeUpdate();
             result = true;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -683,5 +683,33 @@ public class DbManipulate implements IPersistencia{
     
     public boolean deleteImageFromAlbum(Album alb) {
         throw new UnsupportedOperationException("Metodo indisponivel.");
+    }
+    
+    public int getLastId(String table) {
+        int id = 0;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DbConnector.getConnection();
+            
+            stmt = conn.prepareStatement("SELECT MAX(id"+StringUtils.capitalize(table)+") AS id FROM "+table);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                id = rs.getInt("id");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                DbConnector.closeConnection(conn, stmt, rs);
+            } catch (SQLException ex) {
+                Logger.getLogger(DbManipulate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return id;
     }
 }

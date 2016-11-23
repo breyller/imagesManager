@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `album_fotos` (
   `idalbum_fotos` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `id_album` INT NULL COMMENT '',
   `id_foto` INT NULL COMMENT '',
-  `order` INT NULL COMMENT '',
+  `ordem` INT NULL COMMENT '',
   PRIMARY KEY (`idalbum_fotos`)  COMMENT '',
   INDEX `fk_id_foto_idx` (`id_foto` ASC)  COMMENT '',
   INDEX `fk_id_albuns_idx` (`id_album` ASC)  COMMENT '',

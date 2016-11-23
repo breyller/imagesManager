@@ -356,14 +356,11 @@ public class MainController implements Initializable {
         if(verifica){
             boolean imgIsSet = false;
             bdSet = bancoDados.setImage(imgInserida);
-                
+            imgInserida.setId(bancoDados.getLastId("fotos"));
             //poe a imagem no album selecionado
             if (combo3.getValue() != null){
-                //verificar se está funfando getAlbumByTitle.
                 int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
-                System.out.println("albId: " + albId);
                 imgIsSet = bancoDados.setImageOnAlbum(imgInserida.getId(), albId); //Coloca a imagem no album selecionado
-                System.out.println("imgIsSet: " + imgIsSet);
                 if (imgIsSet == false){
                     System.out.println(combo3.getValue());
                     Alert alert = new Alert(AlertType.ERROR);
