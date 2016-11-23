@@ -72,6 +72,8 @@ public class MainController implements Initializable {
     public ComboBox<String> combo4;
     @FXML
     public ComboBox<String> combo5;
+    @FXML
+    public ComboBox<String> combo6;
     
     public void initialize(URL url, ResourceBundle resource){
         populateComboList(null);
@@ -154,11 +156,15 @@ public class MainController implements Initializable {
         combo5.getItems().clear(); 
         combo5.setItems(comboData);        
         
+        combo6.getItems().clear(); 
+        combo6.setItems(comboData);   
+        
     }
     
         public void popCombo2(ActionEvent listComboData){
+            
         ArrayList<String> nomesImagens = new ArrayList<String>();
-        ArrayList<Imagem> arImagens = bancoDados.getAllImages(); //se eu listo todas as imagens, porque eu escolho o album?
+        ArrayList<Imagem> arImagens = bancoDados.getAllImages();
         
         for(int i = 0; i < arImagens.size(); i++){
             nomesImagens.add(arImagens.get(i).getTitle());
@@ -590,11 +596,11 @@ public class MainController implements Initializable {
             //teste.setImage(Title);
             String title = txtPesq.getText();
             ArrayList< Imagem > consultaImagens = bancoDados.getImageByTitle(title);
-            File path = new File("src/Img");
+            File path = new File("src/Img/");
             if(consultaImagens != null){
                 Imagem imgSelecionada = consultaImagens.get(0);
                 //Image imgJava = new Image(imgSelecionada.getPath());
-                Image imgJava = new Image("file:///" + path.getAbsolutePath() + "/" +  imgSelecionada.getPath());
+                Image imgJava = new Image("file:///" + path.getAbsolutePath() + "/" + imgSelecionada.getPath());
                 System.out.println("file:///" + path.getAbsolutePath() + "/" + imgSelecionada.getPath());
                 //teste.seti
                 teste.setImage(imgJava);
@@ -632,8 +638,8 @@ public class MainController implements Initializable {
             if(consultaImagens != null){
                 Imagem imgSelecionada = consultaImagens.get(0);
                 //Image imgJava = new Image(imgSelecionada.getPath());
-                Image imgJava = new Image("file:///" + path.getAbsolutePath() + "/" +  imgSelecionada.getPath());
-                System.out.println("file:///" + path.getAbsolutePath() + "/" + imgSelecionada.getPath());
+                Image imgJava = new Image("file:///" +  imgSelecionada.getPath());
+                System.out.println("file:///" + imgSelecionada.getPath());
                 //teste.seti
                 teste.setImage(imgJava);
                 Alert alert = new Alert(AlertType.INFORMATION);

@@ -93,7 +93,7 @@
       <Label layoutX="874.0" layoutY="372.0" prefHeight="17.0" prefWidth="200.0" text="Editar posição no Album" />
       <Separator layoutX="861.0" layoutY="377.0" orientation="VERTICAL" prefHeight="40.0" prefWidth="14.0" />
       <Button layoutX="993.0" layoutY="393.0" mnemonicParsing="false" onAction="#savePosImage" prefHeight="25.0" prefWidth="80.0" text="Salvar" />
-      <ComboBox fx:id="combo6" editable="true" layoutX="645.0" layoutY="515.0" onAction="#populateList" prefHeight="25.0" prefWidth="209.0" promptText="Albuns" />
+      <ComboBox fx:id="combo6" layoutX="645.0" layoutY="515.0" prefHeight="25.0" prefWidth="209.0" promptText="Albuns" />
       <Label layoutX="634.0" layoutY="489.0" prefHeight="17.0" prefWidth="232.0" text="Inserir imagem no Album" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="12.0" />

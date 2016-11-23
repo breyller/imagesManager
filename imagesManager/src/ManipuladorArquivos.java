@@ -71,7 +71,7 @@ public class ManipuladorArquivos implements IPersistencia{
     public void writeImage(/*String enderecoAbsoluto*/ File origem, String nomeArquivo) throws IOException 
     {
         String nome = origem.getName();
-        String enderecoLocal = nomeArquivo + nome;
+        String enderecoLocal = nomeArquivo;
 //
 //        if (enderecoLocal.equals(origem.getAbsolutePath())) //checks to see if they are not the same arguments
 //        {
@@ -309,7 +309,7 @@ public class ManipuladorArquivos implements IPersistencia{
         else{
             String imgNewName = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
             File arq = new File(img.getPath());
-            String newPath = directory + imgNewName;
+            String newPath = imgNewName;
             img.setPath(newPath);
             try {
                 this.writeImage(arq, newPath);
