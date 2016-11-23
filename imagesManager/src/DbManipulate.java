@@ -84,7 +84,7 @@ public class DbManipulate implements IPersistencia{
     }
     /*
     * Função pra enviar a imagem usando o titulo desta para seleciona-la no Banco de Dados
-    * @param title - Titulo ou parte dele da Imagem a ser encontrada e enviada
+    * @param title - Titulo, ou parte dele, da Imagem a ser encontrada e enviada
     * @return - Retorna uma ArrayList de Objeto do tipo Imagem da imagem desejada, caso haja resultados parciais, vai adicionando todos os resultados a ArrayList
     */
     public ArrayList<Imagem> getImageByTitle(String title) {
@@ -118,8 +118,9 @@ public class DbManipulate implements IPersistencia{
         return images;
     }
     /*
-    * Função pra enviar a imagem usando a Hash em MD5 desta para seleciona-la no Banco de Dados
-    * @param hash - Hash da Imagem a ser encontrada e enviada
+    * Função pra enviar a imagem usando o identificador da mesma e o identifiador de seu album para seleciona-la no Banco de Dados
+    * @param id - Identificador da Imagem a ser encontrada e enviada
+    * @param idAlbum - Identificador do Album que a imagem pertence
     * @return - Retorna um Objeto do tipo Imagem da imagem desejada
     */
     public Imagem getImageById(int id, int idAlbum) {
@@ -151,7 +152,12 @@ public class DbManipulate implements IPersistencia{
         
         return img;
     }
-
+    /*
+    * Função pra enviar a imagem usando a hash MD5 da mesma e o identifiador de seu album para seleciona-la no Banco de Dados
+    * @param hash - Identificador da Imagem a ser encontrada e enviada
+    * @param idAlbum - Identificador do Album que a imagem pertence
+    * @return - Retorna um Objeto do tipo Imagem da imagem desejada
+    */
     public Imagem getImageByHash(String hash, int idAlbum) {
         Imagem img = null;
         Connection conn = null;
@@ -181,7 +187,12 @@ public class DbManipulate implements IPersistencia{
         
         return img;
     }
-
+    /*
+    * Função pra enviar a imagem usando o titulo, ou parte do mesmo, da imagem e o identifiador de seu album para seleciona-la no Banco de Dados
+    * @param title - Titulo, ou parte desta, da Imagem a ser encontrada e enviada
+    * @param idAlbum - Identificador do Album que a imagem pertence
+    * @return - Retorna uma ArrayList de Objeto do tipo Imagem da imagem desejada
+    */
     public ArrayList<Imagem> getImageByTitle(String title, int idAlbum) {
         Imagem img = null;
         Connection conn = null;
@@ -213,7 +224,11 @@ public class DbManipulate implements IPersistencia{
         
         return images;
     }
-
+    /*
+    * Função pra enviar a imagem usando o identificador da mesma no Banco de Dados
+    * @param description - Descrição da Imagem a ser encontrada
+    * @return - Retorna uma ArrayList de Objeto do tipo Imagem da imagem desejada
+    */
     public ArrayList<Imagem> getImageByDescription(String description) {
         Imagem img = null;
         Connection conn = null;
@@ -244,7 +259,12 @@ public class DbManipulate implements IPersistencia{
         
         return images;
     }
-
+    /*
+    * Função pra enviar a imagem usando o titulo, ou parte do mesmo, da imagem e o identifiador de seu album para seleciona-la no Banco de Dados
+    * @param description - Descrição da Imagem a ser encontrada
+    * @param idAlbum - Identificador do Album que a imagem pertence
+    * @return - Retorna uma ArrayList de Objeto do tipo Imagem da imagem desejada
+    */
     public ArrayList<Imagem> getImageByDescription(String description, int idAlbum) {
         Imagem img = null;
         Connection conn = null;
@@ -276,7 +296,11 @@ public class DbManipulate implements IPersistencia{
         
         return images;
     }
-
+    /*
+    * Função pra enviar todas as imagens usando o identifiador de seu album para seleciona-lo no Banco de Dados
+    * @param idAlbum - Identificador do Album que a imagem pertence
+    * @return - Retorna uma ArrayList de Objetos do tipo Imagem das imagens desejadas
+    */
     public ArrayList<Imagem> getImageByAlbumId(int idAlbum) {
         Imagem img = null;
         Connection conn = null;
@@ -307,7 +331,10 @@ public class DbManipulate implements IPersistencia{
         
         return images;
     }
-
+    /*
+    * Função pra enviar todas as imagens no Banco de Dados
+    * @return - Retorna uma ArrayList de Objetos do tipo Imagem de todas as imagems
+    */
     public ArrayList<Imagem> getAllImages(){
         Imagem img = null;
         Connection conn = null;
@@ -338,7 +365,10 @@ public class DbManipulate implements IPersistencia{
         
         return images;
     }
-    
+    /*
+    * Função pra enviar todas os Albums no Banco de Dados
+    * @return - Retorna uma ArrayList de Objetos do tipo Albums de todas os Albums desejados
+    */    
     public ArrayList<Album> getAllAlbuns(){
         Album alb = null;
         Connection conn = null;
@@ -368,7 +398,11 @@ public class DbManipulate implements IPersistencia{
         
         return albumns;
     }
-    
+    /*
+    * Função pra enviar o album usando o identificador deste para seleciona-lo no Banco de Dados
+    * @param id - Identificador de Album a ser encontrado e enviado
+    * @return - Retorna um Objeto do tipo Album do album desejado
+    */
     public Album getAlbumById(int id) {
         Album alb = null;
         Connection conn = null;
@@ -397,7 +431,11 @@ public class DbManipulate implements IPersistencia{
         
         return alb;
     }
-
+    /*
+    * Função pra enviar o album usando o identificador deste para seleciona-lo no Banco de Dados
+    * @param title - Titulo do, ou parte dele, Album a ser encontrado e enviado
+    * @return - Retorna uma ArrayList de objetos do tipo Album do album desejado
+    */
     public ArrayList<Album> getAlbumByTitle(String title) {
         Album alb = null;
         Connection conn = null;
@@ -428,7 +466,11 @@ public class DbManipulate implements IPersistencia{
         
         return albumns;
     }
-
+    /*
+    * Função pra enviar o album usando o identificador deste para seleciona-lo no Banco de Dados
+    * @param description - Descrição do Album a ser encontrado e enviado
+    * @return - Retorna uma ArrayList de objetos do tipo Album do album desejado
+    */
     public ArrayList<Album> getAlbumByDescription(String description) {
         Album alb = null;
         Connection conn = null;

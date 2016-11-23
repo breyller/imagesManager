@@ -5,6 +5,7 @@ import java.util.ArrayList;
 * @author Henrique
 * Classe Album usada para criar instancias do objeto album, enviar suas informacoes e receber suas mudancas.
 * Um album somente e uma colecao de imagens, nao sendo um tipo de arquivo.
+* @see Imagem
 */
 public class Album {
     Description desc;
