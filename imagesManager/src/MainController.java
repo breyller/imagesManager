@@ -501,9 +501,6 @@ public class MainController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("HTML com albun(s) exportado com sucesso!");
             alert.showAndWait();
-            combo.setValue(null);
-            list.setItems(null);
-        
         File path = new File("src/HTML");    
         String url = new String(path.getAbsolutePath()+ "/imagesManagerSite.html");
         File dir = new File (url);
@@ -517,6 +514,10 @@ public class MainController implements Initializable {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        combo.setValue(null);
+        //list.setItems(null);
+        list.getItems().clear();   
+
         }else{
             Runtime runtime = Runtime.getRuntime();
             try {
