@@ -313,11 +313,6 @@ public class ManipuladorArquivos implements IPersistencia{
             img.setPath(newPath);
             try {
                 this.writeImage(arq, newPath);
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Informação");
-                alert.setHeaderText(null);
-                alert.setContentText("Imagem inserida no Banco de Dados");
-                alert.showAndWait();
                 return true;
             } catch (IOException ex) {
                 Logger.getLogger(ManipuladorArquivos.class.getName()).log(Level.SEVERE, null, ex);

@@ -362,7 +362,6 @@ public class MainController implements Initializable {
                 int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
                 imgIsSet = bancoDados.setImageOnAlbum(imgInserida.getId(), albId); //Coloca a imagem no album selecionado
                 if (imgIsSet == false){
-                    System.out.println(combo3.getValue());
                     Alert alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Informação");
                     alert.setHeaderText(null);
@@ -373,32 +372,30 @@ public class MainController implements Initializable {
             }
         }
         else{
-//            if(bdSet){
-//            Alert alert = new Alert(AlertType.INFORMATION);
-//            alert.setTitle("Informação");
-//            alert.setHeaderText(null);
-//            alert.setContentText("Imagem Inserida com sucesso");
-//            alert.showAndWait();
-//            lImageName.setText(null);
-//            txtImageName.setText("");
-//            txtImageDesc.setText("");
-//        }
-//        else{
-//            Alert alert = new Alert(AlertType.ERROR);
-//            alert.setTitle("Erro");
-//            alert.setHeaderText(null);
-//            alert.setContentText("Erro ao inserir imagem!");
-//            alert.showAndWait();
-//            lImageName.setText(null);
-//            txtImageName.setText("");
-//            txtImageDesc.setText("");           
+            if(bdSet){
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Informação");
+                alert.setHeaderText(null);
+                alert.setContentText("Imagem Inserida com sucesso");
+                alert.showAndWait();
+                lImageName.setText(null);
+                txtImageName.setText("");
+                txtImageDesc.setText("");
+            }
+            else{
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText(null);
+                alert.setContentText("Erro ao inserir imagem!");
+                alert.showAndWait();
+                lImageName.setText(null);
+                txtImageName.setText("");
+                txtImageDesc.setText("");           
                 return;
+            }
         }
-        
-            
-        
     }
-    
+            
     /*Exportar Album*/
     @FXML
     public TextField txtAlbumName;
