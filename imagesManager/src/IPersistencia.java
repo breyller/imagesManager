@@ -1,5 +1,10 @@
 import java.util.ArrayList;
-
+/*
+* Classe de Interface de persistencia.
+* @author Bruno Lopes
+* @author Bruno Reyller
+* @author Henrique
+*/
 public interface IPersistencia {
     
     Imagem getImageById(int id);
