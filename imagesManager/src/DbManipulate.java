@@ -468,7 +468,7 @@ public class DbManipulate implements IPersistencia{
     }
     /*
     * Função pra enviar o album usando o identificador deste para seleciona-lo no Banco de Dados
-    * @param description - Descrição do Album a ser encontrado e enviado
+    * @param String description - Descrição do Album a ser encontrado e enviado
     * @return - Retorna uma ArrayList de objetos do tipo Album do album desejado
     */
     public ArrayList<Album> getAlbumByDescription(String description) {
@@ -501,7 +501,11 @@ public class DbManipulate implements IPersistencia{
         
         return albumns;
     }
-
+    /*
+    * Função pra definir o album no Banco de Dados usando um objeto Album 
+    * @param Album alb - Album a ser definido no Banco de Dados
+    * @return - Retorna uma confirmação booleana
+    */
     public boolean setAlbum(Album alb) {
         boolean result = false;
         Connection conn = null;
@@ -527,7 +531,11 @@ public class DbManipulate implements IPersistencia{
         
         return result;
     }
-
+    /*
+    * Função pra definir a imagem no Banco de Dados usando um objeto Imagem 
+    * @param Imagem img - Imagem a ser definida no Banco de Dados
+    * @return - Retorna uma confirmação booleana
+    */
     public boolean setImage(Imagem img) {
         boolean result = false;
         Connection conn = null;
@@ -555,7 +563,12 @@ public class DbManipulate implements IPersistencia{
         
         return result;
     }
-
+    /*
+    * Função pra definir a imagem no album desejado no Banco de Dados usando um objeto Imagem e um Objeto album 
+    * @param int idImagem - Identificador da Imagem a ser definida no Album no Banco de Dados
+    * @param int idAlbum - Identificador do Album em que a Imagem sera inserida
+    * @return - Retorna uma confirmação booleana
+    */
     public boolean setImageOnAlbum(int idImage, int idAlbum) {
         boolean result = false;
         Connection conn = null;
@@ -594,7 +607,11 @@ public class DbManipulate implements IPersistencia{
         
         return result;
     }
-
+    /*
+    * Função pra atualizar o album no Banco de Dados usando um objeto Album 
+    * @param Album alb - Album a ser atualizado no Banco de Dados
+    * @return - Retorna uma confirmação booleana
+    */
     public boolean updateAlbum(Album alb) {
         boolean result = false;
         Connection conn = null;
@@ -621,7 +638,11 @@ public class DbManipulate implements IPersistencia{
         
         return result;
     }
-
+    /*
+    * Função pra atualizar a imagem no Banco de Dados usando um objeto Imagem 
+    * @param Imagem img - Imagem a ser atualizada no Banco de Dados
+    * @return - Retorna uma confirmação booleana
+    */
     public boolean updateImage(Imagem img) {
         boolean result = false;
         Connection conn = null;
@@ -650,7 +671,11 @@ public class DbManipulate implements IPersistencia{
         
         return result;
     }
-
+    /*
+    * Função pra deletar a imagem no Banco de Dados usando um objeto Imagem 
+    * @param Imagem img - Imagem a ser deletada no Banco de Dados
+    * @return - Retorna uma confirmação booleana
+    */
     public boolean deleteImage(int idImage) {
         boolean result = false;
         Connection conn = null;
@@ -684,7 +709,11 @@ public class DbManipulate implements IPersistencia{
     public boolean deleteImageFromAlbum(Album alb) {
         throw new UnsupportedOperationException("Metodo indisponivel.");
     }
-    
+    /*
+    * Função pra receber o ultimo Identificador no Banco de dados 
+    * @param String table - nome da Table no Banco de Dados a ser utilizada
+    * @return - Retorna uma confirmação booleana
+    */
     public int getLastId(String table) {
         int id = 0;
         Connection conn = null;

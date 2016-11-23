@@ -71,7 +71,7 @@ public class ManipuladorArquivos implements IPersistencia{
     public void writeImage(/*String enderecoAbsoluto*/ File origem, String nomeArquivo) throws IOException 
     {
         String nome = origem.getName();
-        String enderecoLocal = nomeArquivo + nome;
+        String enderecoLocal = nomeArquivo;
 //
 //        if (enderecoLocal.equals(origem.getAbsolutePath())) //checks to see if they are not the same arguments
 //        {
@@ -293,6 +293,11 @@ public class ManipuladorArquivos implements IPersistencia{
     }
 
     @Override
+    /*
+    * Funçao para definir a imagem
+    * @param Imagem img - Objeto imagem a ser definido
+    */
+    
     public boolean setImage(Imagem img) {
         DbManipulate bancoDados = new DbManipulate();
         Imagem consulta = null;
