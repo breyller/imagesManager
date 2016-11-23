@@ -583,7 +583,7 @@ public class MainController implements Initializable {
             //enviar para o metodo getImageByTitle
             //receber imagem do metodo
             //exibir imagem no teste.
-            String title = txtPesq.getText();
+            
             
             //Imagem image<Imagem> = new Imagem();
             //Title = bancoDados.getImageByTitle(title);
@@ -591,6 +591,7 @@ public class MainController implements Initializable {
             //bancoDados.
             
             //teste.setImage(Title);
+            String title = txtPesq.getText();
             ArrayList< Imagem > consultaImagens = bancoDados.getImageByTitle(title);
             File path = new File("src/Img");
             if(consultaImagens != null){
@@ -628,6 +629,22 @@ public class MainController implements Initializable {
             alert.showAndWait();
         } else {
          //conexao com bd e exibir imagem no image view
+            String desc = txtPesq.getText();
+            ArrayList< Imagem > consultaImagens = bancoDados.getImageByDescription(desc);
+            File path = new File("src/Img");
+            if(consultaImagens != null){
+                Imagem imgSelecionada = consultaImagens.get(0);
+                //Image imgJava = new Image(imgSelecionada.getPath());
+                Image imgJava = new Image("file:///" + path.getAbsolutePath() + "/" +  imgSelecionada.getPath());
+                System.out.println("file:///" + path.getAbsolutePath() + "/" + imgSelecionada.getPath());
+                //teste.seti
+                teste.setImage(imgJava);
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Informação");
+                alert.setHeaderText(null);
+                alert.setContentText("Imagem Encontrada!");
+                alert.showAndWait();
+            }
         }
     }
     

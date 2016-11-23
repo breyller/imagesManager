@@ -199,7 +199,7 @@ public class DbManipulate implements IPersistencia{
         try {
             conn = DbConnector.getConnection();
             
-            stmt = conn.prepareStatement("SELECT * FROM fotos WHERE title LIKE ?");
+            stmt = conn.prepareStatement("SELECT * FROM fotos WHERE description LIKE ?");
             stmt.setString(1, "%"+description+"%");
             rs = stmt.executeQuery();
             
