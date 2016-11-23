@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -176,11 +178,32 @@ public class ManipuladorArquivos implements IPersistencia{
         System.out.println("Done");
     }
 
-    /** Função de deleta de arquivo no repositório local
+    /** Função de deleta de arquivo no repositório local, ou diretorio completo CASO esteja vazio
     * @param nomeArquivo - Arquivo a ser deletado do repositório local
     */
-    public void deleteImage(String nomeArquivo) throws IOException {
-
+    public void deleteImage(String nomeArquivo) throws IOException 
+    {
+        String caminho = directory + nomeArquivo;
+        File arquivo;
+        arquivo = new File(caminho);
+        Path path = Paths.get(arquivo.getAbsolutePath());
+        try 
+        {
+            Files.delete(path);
+        } 
+            catch (NoSuchFileException x) 
+        {
+            System.err.format("%s: no such" + " file or directory%n", path);
+        } 
+            catch (DirectoryNotEmptyException x) 
+        {
+            System.err.format("%s not empty%n", path);
+        } 
+            catch (IOException x) 
+        {
+            // File permission problems are caught here.
+            System.err.println(x);
+        }
     }
 
     /** Função para se listar os arquivos no repositorio local
