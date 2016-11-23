@@ -47,12 +47,8 @@ public class MainController implements Initializable {
     
     DbManipulate bancoDados = new DbManipulate();
     ManipuladorArquivos mani = new ManipuladorArquivos();
-    MD5 md5 = new MD5();
     ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
     ArrayList<String> nomesAlbuns = null;
-            
-    
-
     
      /**
     * Inicializa listas a serem exibidas
@@ -82,7 +78,6 @@ public class MainController implements Initializable {
     public TextField getAlbumName;
     @FXML
     public TextField getAlbumDesc;
-    public DbManipulate db = new DbManipulate();
     
     public void newAlbum(ActionEvent setNewAlbum){
         String TituloAlbum;
@@ -108,7 +103,7 @@ public class MainController implements Initializable {
             Album alb = new Album();
             alb.setTitle(TituloAlbum);
             alb.setDescription(DescAlbum);
-            retorno = db.setAlbum(alb);
+            retorno = bancoDados.setAlbum(alb);
             
             if(retorno){
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -132,7 +127,6 @@ public class MainController implements Initializable {
     }
       
     public void populateComboList(ActionEvent listComboData){
-        DbManipulate bancoDados = new DbManipulate();
         ArrayList<String> nomesAlbuns = new ArrayList<String>();
         ArrayList<Album> arAlbuns = bancoDados.getAllAlbuns();
         
@@ -159,7 +153,6 @@ public class MainController implements Initializable {
     }
     
         public void popCombo2(ActionEvent listComboData){
-        DbManipulate bancoDados = new DbManipulate();
         ArrayList<String> nomesImagens = new ArrayList<String>();
         ArrayList<Imagem> arImagens = bancoDados.getAllImages(); //se eu listo todas as imagens, porque eu escolho o album?
         
@@ -320,63 +313,6 @@ public class MainController implements Initializable {
      */
     public void insertImage(ActionEvent event) throws NoSuchAlgorithmException, IOException 
     {
-        Imagem imgInserida = null; //Objeto Imagem a ser inserido //Imagem(String desc, String title, String path, String hash, int id)
-         //Inicializando variaveis que serao colocadas na 
-        File img = null;
-        String imgDesc = null;
-        String imgTitle = null;
-        String imgPath = null;
-        String imgHash = null;
-        int imgId = 0;
-        boolean verifica = false;
-        // Preenchendo campos para inserçao de imagem
-        img = new File(lImageName.getText());
-        imgDesc = txtImageDesc.getText();
-        imgTitle = txtImageName.getText();
-        imgPath = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
-        imgHash = md5.gerarMD5(img);
-        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada //Eu podia reduzir os SELECTs pro banco recebendo todas as imagens em um ArrayList e usando só ele
-        {
-            if (imgHash == bancoDados.getAllImages().get(i).getHash())
-            {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Informação");
-                alert.setHeaderText(null);
-                alert.setContentText("Imagem já existente no Banco de Dados");
-                alert.showAndWait();
-            }
-            else
-            {
-                imgId = bancoDados.getAllImages().get(i).getId() + 1; // Recebe a ultima id e adiciona 1
-            }
-        }
-            // Instanciando a imagem com todas as informacoes
-        imgInserida = new Imagem(imgDesc, imgTitle, imgPath, imgHash, imgId);
-        //Inserindo objeto Imagem no banco de dados
-        bancoDados.setImage(imgInserida);
-        //Inserindo arquivo da imagem no repositorio local
-        mani.writeImage(/*origem*/img, /*destino*/"/src/Img/"); // Salva a imagem no local desejado
-        
-        if (combo3.getValue() !=  " ") //poe a imagem no album selecionado
-        {
-            int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
-            verifica = bancoDados.setImageOnAlbum( imgId, albId); //Coloca a imagem no album selecionado
-        }
-        else //poe a imagem no album TodasAsImagens
-        {
-            verifica = bancoDados.setImageOnAlbum( imgId, 0); // ID 0 de albuns é todas as imagens
-        }
-        if (verifica = false)
-        {
-            System.out.println(combo3.getValue());
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Informação");
-            alert.setHeaderText(null);
-            alert.setContentText("Falha na insercao de imagem no album");
-            alert.showAndWait();
-        }
-        
-        
         // Tratamento de falhas na interface
         if (lImageName.getText() == null || lImageName.getText().trim().isEmpty()){
             Alert alert = new Alert(AlertType.ERROR);
@@ -384,20 +320,55 @@ public class MainController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Selecione uma imagem para ser inserida!");
             alert.showAndWait();
+            return;
         } else if (txtImageName.getText() == null || txtImageName.getText().trim().isEmpty() || txtImageDesc.getText() == null || txtImageDesc.getText().trim().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
             alert.setContentText("Insira nome e/ou a descrição da Imagem!");
             alert.showAndWait();
+            return;
         } else if (combo3.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
             alert.setContentText("Escolha o album!");
             alert.showAndWait();
-        } else {
-            System.out.println(combo3.getValue());
+            return;
+        }
+        boolean bdSet = false;        
+        File img = new File(lImageName.getText());
+        String imgDesc = txtImageDesc.getText();
+        String imgTitle = txtImageName.getText();
+        String imgPath = lImageName.getText();
+        String imgHash = MD5.gerarMD5(img);
+        int imgId = 0;
+        Imagem imgInserida = new Imagem(imgDesc, imgTitle, imgPath, imgHash, imgId);
+        boolean verifica = mani.setImage(imgInserida);
+        if(verifica){
+            boolean imgIsSet = false;
+            bdSet = bancoDados.setImage(imgInserida);
+
+            //poe a imagem no album selecionado
+            if (combo3.getValue() != null){
+                int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
+                imgIsSet = bancoDados.setImageOnAlbum(imgInserida.getId(), albId); //Coloca a imagem no album selecionado
+                if (imgIsSet == false){
+                    System.out.println(combo3.getValue());
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Informação");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Falha na insercao de imagem no album");
+                    alert.showAndWait();
+                    return;
+                }
+            }
+        }
+        else{
+            return;
+        }
+            
+        if(bdSet){
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Informação");
             alert.setHeaderText(null);
@@ -406,10 +377,17 @@ public class MainController implements Initializable {
             lImageName.setText(null);
             txtImageName.setText("");
             txtImageDesc.setText("");
-            combo3.setValue(null);
         }
-        
-        
+        else{
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText("Erro ao inserir imagem!");
+            alert.showAndWait();
+            lImageName.setText(null);
+            txtImageName.setText("");
+            txtImageDesc.setText("");            
+        }
     }
     
     /*Exportar Album*/
@@ -420,8 +398,7 @@ public class MainController implements Initializable {
     * Funcao de exportacao de album, isto e, todas as imagens inseridas dentro do album sao salvas em um repositorio na maquina do usuario
     * @param event - Botao sendo ativado pelo usuario
     */
-
-    
+   
     public void exportAlbum(ActionEvent event) throws IOException
     {
                 

@@ -9,8 +9,14 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /*
 * @author Bruno Lopes
@@ -265,8 +271,32 @@ public class ManipuladorArquivos implements IPersistencia{
 
     @Override
     public boolean setImage(Imagem img) {
-        //implementar este
-        throw new UnsupportedOperationException("Metodo indisponivel.");
+        DbManipulate bancoDados = new DbManipulate();
+        Imagem consulta = null;
+        
+        consulta = bancoDados.getImageByHash(img.getHash());
+        
+        if(consulta.getId() != 0){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informação");
+            alert.setHeaderText(null);
+            alert.setContentText("Imagem já existente no Banco de Dados");
+            alert.showAndWait();
+        }
+        else{
+            String imgNewName = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+            File arq = new File(img.getPath());
+            String newPath = directory + imgNewName;
+            img.setPath(directory);
+            try {
+                this.writeImage(arq, newPath);
+                return true;
+            } catch (IOException ex) {
+                Logger.getLogger(ManipuladorArquivos.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override

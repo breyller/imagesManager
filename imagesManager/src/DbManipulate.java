@@ -288,7 +288,7 @@ public class DbManipulate implements IPersistencia{
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        ArrayList<Imagem> images = new ArrayList<>();
+        ArrayList<Imagem> images = new ArrayList<Imagem>();
         
         try {
             conn = DbConnector.getConnection();

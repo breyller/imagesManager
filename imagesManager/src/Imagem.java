@@ -1,12 +1,4 @@
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 public class Imagem {
     private Description desc;
@@ -19,7 +11,7 @@ public class Imagem {
         this.desc = new Description();
         this.title = new Title();
         this.setPath(null);
-        this.setHash(null);
+        this.setHash(null);        
     }
     
     public Imagem(String desc, String title, String path, String hash, int id){
