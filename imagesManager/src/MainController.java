@@ -503,18 +503,33 @@ public class MainController implements Initializable {
             alert.showAndWait();
             combo.setValue(null);
             list.setItems(null);
-            
-//            try {
-//            Desktop.getDesktop().browse(uri);
-//            } catch (IOException e1) {
-//                e1.printStackTrace();
-//            }
-            
-            
-            //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\" C:\\Users\\blopes\\Desktop\\imagesManagerSite\\imagesManagerSite.html");
-         //   System.out.println(dirHTML);
-            //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\"" + dirHTML);
-            //p.waitFor();
+        
+        File path = new File("src/HTML");    
+        String url = new String(path.getAbsolutePath()+ "/imagesManagerSite.html");
+        File dir = new File (url);
+        
+        
+        if(Desktop.isDesktopSupported()){
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.browse(dir.toURI());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }else{
+            Runtime runtime = Runtime.getRuntime();
+            try {
+                runtime.exec("xdg-open " + url);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }    
+        //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\" C:\\Users\\blopes\\Desktop\\imagesManagerSite\\imagesManagerSite.html");
+        //   System.out.println(dirHTML);
+        //Process p = Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\"" + dirHTML);
+        //p.waitFor();
         }
     }
     
