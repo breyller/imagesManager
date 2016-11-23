@@ -6,8 +6,16 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/*
+* @author Bruno Lopes
+* @author Bruno Reyller
+* @author Henrique
+* Classe que realiza as diversas operações com o banco de dados.
+*/
 public class DbManipulate implements IPersistencia{
-    
+    /*
+    * 
+    */
     public Imagem getImageById(int id){
         Imagem img = null;
         Connection conn = null;
