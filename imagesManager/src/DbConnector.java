@@ -7,9 +7,14 @@ import java.sql.SQLException;
 public class DbConnector {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://db4free.net:3306/imagesmanager";
-    private static final String USER = "im_user";
-    private static final String PASS = "12345!@#$%";
+    private static final String URL = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3146033";
+    private static final String USER = "sql3146033";
+    private static final String PASS = "PClt5wzTHV";
+    
+//    private static final String DRIVER = "com.mysql.jdbc.Driver";
+//    private static final String URL = "jdbc:mysql://localhost:3306/imagesManager";
+//    private static final String USER = "root";
+//    private static final String PASS = "root";
     
     public static Connection getConnection() throws ClassNotFoundException, SQLException{
         Class.forName(DRIVER);
