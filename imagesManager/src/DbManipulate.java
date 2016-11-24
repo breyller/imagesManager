@@ -311,9 +311,10 @@ public class DbManipulate implements IPersistencia{
         
         try {
             conn = DbConnector.getConnection();
-            
+            //                            SELECT f.* FROM fotos f JOIN album_fotos af ON f.idFotos = af.id_foto JOIN album a ON af.id_album = a.idAlbum WHERE a.idAlbum = 1
             stmt = conn.prepareStatement("SELECT f.* FROM fotos f JOIN album_fotos af ON f.idFotos = af.id_foto JOIN album a ON af.id_album = a.idAlbum WHERE a.idAlbum = ?");
-            stmt.setString(1, "%"+idAlbum+"%");
+            stmt.setInt(1, idAlbum);
+           System.out.println(stmt.toString());
             rs = stmt.executeQuery();
             
             while(rs.next()){
