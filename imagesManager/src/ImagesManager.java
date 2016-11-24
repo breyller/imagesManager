@@ -8,7 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+/*
+* Classe principal para iniciar a aplicação e sua interface gráfica
+*/
 public class ImagesManager extends Application {
     
     @Override

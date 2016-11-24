@@ -187,13 +187,14 @@ public class MainController implements Initializable {
     public void exportImage(ActionEvent listData) throws IOException
     {
         Imagem imgOrigem = null; // Inicializa uma instancia de Imagem
-        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
+       /* for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
         {
             if (combo2.getValue().equals(bancoDados.getAllImages().get(i).getTitle())); // para na com titulo igual
             {
                 imgOrigem = bancoDados.getAllImages().get(i); // Recebe o objeto Imagem da imagem selecionada pelo if
             }
-        }    
+        }
+        */imgOrigem = bancoDados.getAllImages().get(0); // Recebe o objeto Imagem da imagem selecionada pelo if
         String endOrigem = imgOrigem.getPath(); //Null pointer não sei porque...
         String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
         File origem = new File(endOrigem); //receives the file destination from the argument lines
@@ -241,17 +242,27 @@ public class MainController implements Initializable {
     
     ObservableList<String> data = FXCollections.observableArrayList();
     
+    /*
+    Função para popular a lista
+    @param ActionEvent listData - Evento clicavel
+    */
     public void populateList(ActionEvent listData){
         
         data.add(combo.getValue());
         list.setItems(data);
     }
-    
+    /*
+    * Função para limpar a lista
+    * @param ActionEvent listData - Evento clicavel
+    */
     public void deleteItemList(ActionEvent listData){
         list.getItems().remove(list.getSelectionModel().getSelectedItem());
     }
     
-    /*Botao Sair*/
+    /*
+    * Botão sair
+    * @param ActionEvent listData - Evento clicavel
+    */
     public void exit(ActionEvent exit){
         System.exit(0);
     }
@@ -445,7 +456,9 @@ public class MainController implements Initializable {
         }
     }
     
-    /*Exportar Album*/
+    /*Função para Exportar Album em HTML
+    * @param ActionEvent event - Botão sendo clicado
+    */
     @FXML
     
     
@@ -526,7 +539,9 @@ public class MainController implements Initializable {
     
     String atualPosi;
     String TotalPos;
-    
+    /*
+    * Função para mover a imagem uma posição acima no album 
+    */
     public void upArrayImage(ActionEvent event){
         TotalPos = Integer.toString(iTotalPos);
         totalPos.setText(TotalPos);
@@ -539,7 +554,9 @@ public class MainController implements Initializable {
         }
         totalPos.setText(TotalPos);
     }
-                
+    /*
+    * Função para mover a imagem uma posição abaixo no album 
+    */                
     public void downArrayImage(ActionEvent event){
         TotalPos = Integer.toString(iTotalPos);
         totalPos.setText(TotalPos);
@@ -552,7 +569,9 @@ public class MainController implements Initializable {
         }
         totalPos.setText(TotalPos);
     }
-    
+   /*
+    * Função para salvar a posição de uma imagem no album 
+    */
     public void savePosImage(ActionEvent event){
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Informação");
@@ -566,7 +585,9 @@ public class MainController implements Initializable {
     public TextField txtPesq;
     public ArrayList<Imagem> Title;
     public Imagem img;
-            
+    /*
+    * Função para pesquisar uma imagem pelo nome
+    */         
     public void pesqNome(ActionEvent event){
         if (txtPesq.getText() == null || txtPesq.getText().trim().isEmpty()){
             Alert alert = new Alert(AlertType.ERROR);
@@ -615,7 +636,9 @@ public class MainController implements Initializable {
          //conexao com bd e exibir imagem no image view
         }
     }
-    
+    /*
+    * Função para pesquisar uma imagem por descrição 
+    */
     public void pesqDesc(ActionEvent event){
         if (txtPesq.getText() == null || txtPesq.getText().trim().isEmpty()){
             Alert alert = new Alert(AlertType.ERROR);

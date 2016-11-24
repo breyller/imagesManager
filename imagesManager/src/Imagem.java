@@ -1,5 +1,10 @@
 import java.util.ArrayList;
-
+/*
+* Classe para definição e operações usando Objeto Imagem
+* @author Bruno Lopes
+* @author Bruno Reyller
+* @author Henrique
+*/
 public class Imagem {
     private Description desc;
     private Title title;
@@ -13,7 +18,14 @@ public class Imagem {
         this.setPath(null);
         this.setHash(null);        
     }
-    
+    /*
+    * Contrutor para Imagem
+    * @param String desc - Descrição de Imagem
+    * @param String ttle - Titulo de Imagem
+    * @param String path - Caminho de Imagem
+    * @param String Hash - Hash de Imagem
+    * @param int id - Identificador de Imagem
+    */
     public Imagem(String desc, String title, String path, String hash, int id){
         this.desc = new Description(desc);
         this.title = new Title(title);
@@ -21,7 +33,11 @@ public class Imagem {
         this.setHash(hash);
         this.setId(id);
     }
-    
+    /*
+    Define Path
+    @param String path - Caminho a ser definido
+    @return - Confirmação booleana
+    */
     public boolean setPath(String path){
         boolean result = false;
         
@@ -31,7 +47,11 @@ public class Imagem {
         
         return result;
     }
-    
+    /*
+    Define Hash
+    @param String hash - Hash a ser definido
+    @return - Confirmação booleana
+    */
     public boolean setHash(String hash){
         boolean result = false;
         
@@ -41,7 +61,11 @@ public class Imagem {
         
         return result;
     }
-    
+        /*
+    Define identificador
+    @param int it - Identificador a ser definido
+    @return - Confirmação booleana
+    */
     public boolean setId(int id){
         boolean result = false;
         
@@ -61,7 +85,11 @@ public class Imagem {
         
         return result;
     }
-    
+    /*
+    Define Descrição
+    @param String desc - Descrição a ser definida
+    @return - Confirmação booleana
+    */
     public boolean setDescription(String desc){
         boolean result = false;
         
@@ -71,23 +99,38 @@ public class Imagem {
         
         return result;
     }
-    
+    /*
+    * Envia descrição
+    * @return - Descrição de Imagem
+    */
     public String getDescription(){
         return this.desc.getDescription();
     }
-    
+    /*
+    * Envia Title
+    * @return - Titulo de Imagem
+    */
     public String getTitle(){
         return this.title.getTitle();
     }
-    
+     /*
+    * Envia Hash
+    * @return - Hash de Imagem
+    */   
     public String getHash(){
         return this.hash;
     }
-    
+    /*
+    * Envia path
+    * @return - Path de Imagem
+    */    
     public String getPath(){
         return this.path;
     }
-    
+    /*
+    * Envia identificador
+    * @return - Identificador de Imagem
+    */    
     public int getId(){
         return this.id;
     }
