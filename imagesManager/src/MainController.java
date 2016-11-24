@@ -163,13 +163,10 @@ public class MainController implements Initializable {
         public void popCombo2(ActionEvent listComboData){
         ArrayList<String> nomesImagens = new ArrayList<String>();
         int idAlb = bancoDados.getAlbumByTitle(combo1.getValue()).get(0).getId();
-        System.out.println(idAlb);
         ArrayList<Imagem> arImagens = bancoDados.getImageByAlbumId(idAlb);
-        
         for(int i = 0; i < arImagens.size(); i++)
         {
             nomesImagens.add(arImagens.get(i).getTitle());
-            System.out.println(nomesImagens.get(i));
         }
 
         ObservableList<String> comboData = FXCollections.observableArrayList(nomesImagens);
@@ -199,11 +196,14 @@ public class MainController implements Initializable {
             }
         }
         */imgOrigem = bancoDados.getImageByTitle(combo2.getValue()).get(0); // Recebe o objeto Imagem da imagem selecionada pelo if
+//        System.out.println("Imagem Origem  Path: "+imgOrigem.getPath());
         String endOrigem = imgOrigem.getPath(); //Null pointer não sei porque...
         String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
-        File origem = new File(endOrigem); //receives the file destination from the argument lines
+        File origem = new File(directory+endOrigem+".jpg"); //receives the file destination from the argument lines
         
-        mani.writeImage(origem, destino); // Salva a imagem no local desejado
+        mani.writeImage(origem, destino, 1); // Salva a imagem no local desejado
+//        System.out.println("Origem  Path: "+imgOrigem.getPath());
+//        System.out.println("Destino: "+destino);
 
         
         
@@ -424,17 +424,31 @@ public class MainController implements Initializable {
    
     public void exportAlbum(ActionEvent event) throws IOException
     {
-                
-        // Receber a array list de objetos Imagem do Album; e o endereço onde serão copiadas para
-        String end = txtAlbumName.getText(); //Endereço onde serão salvas as imagens
-        ArrayList<Imagem> imagens = bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getAllImages(); //Recebe as imagens do album selecionado em combo 4; 
+      /*String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
+        File origem = new File(directory+endOrigem+".jpg"); //receives the file destination from the argument lines*/
         
-        // Copia as imagens para o local desejado
-        for (int i = 0; i < imagens.size(); i++)
+        // Receber a array list de objetos Imagem do Album; e o endereço onde serão copiadas para
+        String destino = txtAlbumName.getText(); //Endereço onde serão salvas as imagens
+        System.out.println("111DESTINO: "+destino);
+        System.out.println("COMBO 4: "+(combo4.getValue()));
+        System.out.println("ALBUM TITLE: "+(bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getTitle()));
+//        ArrayList<Imagem> imagens = bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getAllImages(); //Recebe as imagens do album selecionado em combo 4; 
+        
+        int idAlb = bancoDados.getAlbumByTitle(combo4.getValue()).get(0).getId();
+        ArrayList<Imagem> arImagens = bancoDados.getImageByAlbumId(idAlb);
+        for(int i = 0; i < arImagens.size(); i++)
         {
-            File arquivo = new File(imagens.get(i).getPath()); //Recebe o caminho absoluto da imagem pelo banco e a instancia
-            mani.writeImage(arquivo, end); // Escreve a imagem no diretorio desejado
-        }     
+            File origem = new File(directory+arImagens.get(i).getPath()); //Recebe o caminho absoluto da imagem pelo banco e a instancia
+            System.out.println("111ORIGEM: "+arImagens.get(i).getPath());
+            mani.writeImage(origem, destino,1); // Escreve a imagem no diretorio desejado
+        }
+//        // Copia as imagens para o local desejado
+//        for (int i = 0; i < imagens.size(); i++)
+//        {
+//            File origem = new File(imagens.get(i).getPath()); //Recebe o caminho absoluto da imagem pelo banco e a instancia
+//            System.out.println("111ORIGEM: "+imagens.get(i).getPath());
+//            mani.writeImage(origem, destino,1); // Escreve a imagem no diretorio desejado
+//        }     
         
         if (combo4.getValue() == null){
             Alert alert = new Alert(AlertType.ERROR);
