@@ -81,7 +81,7 @@ public class ManipuladorArquivos implements IPersistencia{
 
         /*Receives and checks files and destinations*/
         File source = origem; //receives the file from the argument lines
-        System.out.println(directory+nome);
+        System.out.println("ESSE AQUI ESTA EM MANI:"+directory+nome);
         File dest = new File(directory+enderecoLocal); //receives the file destination from the argument lines
 
         //Compares if the images are equal (should be changed later to compare to ALL images on the folder
@@ -117,7 +117,7 @@ public class ManipuladorArquivos implements IPersistencia{
                 System.out.println("Time: " + (System.currentTimeMillis() - startTime)); //Displays time spent in the copy operation
             } /*Exception handling*/ catch (FileNotFoundException fnfe) 
             {
-                System.err.println("File was not found");
+                System.err.println("File was not found IN MANI");
             } /*Always closes the streams after the try*/ finally //Closes the input and output stream
             {
                 if (input != null) //Checks to see if there's an input stream
@@ -132,6 +132,64 @@ public class ManipuladorArquivos implements IPersistencia{
             System.out.println("Done");
 //        }
     }
+    
+   /** Função de escrita de arquivo no repositório local
+    * @param origem - Arquivo do tipo file a ser copiado
+    * @param nomeArquivo - local onde o arquivo vai ser colocado
+    * @param i - sobrecarga
+    */
+        public void writeImage(/*String enderecoAbsoluto*/ File origem, String nomeArquivo, int i) throws IOException 
+    {
+        String nome = origem.getName();
+        String enderecoLocal = nomeArquivo;
+//
+//       
+        /*Receives and checks files and destinations*/
+        File source = origem; //receives the file from the argument lines
+        System.out.println("ESSE AQUI ESTA EM MANI2:"+directory+nome);
+        System.out.println("ESSE AQUI ESTA EM MANI2 Destino:"+enderecoLocal);
+        File dest = new File(enderecoLocal+nome); //receives the file destination from the argument lines
+
+      
+            /*Initializes streams*/
+            InputStream input = null; //initializes the input stream
+            OutputStream output = null; //initializes the output stream
+
+            /*Starts to copy the files*/
+            try 
+            {
+
+                long startTime = System.currentTimeMillis(); //Timer
+                input = new FileInputStream(source); //Input will be the source file
+                output = new FileOutputStream(dest); //Output will be the destination file, it will erase the previous file
+                byte[] buffer = new byte[CHUNK]; //Prepares the buffer
+                int bytesRead;
+
+                while ((bytesRead = input.read(buffer)) > 0) //Copies the bytes on the input to the output
+                {
+                    output.write(buffer, 0, bytesRead);
+                }
+
+                System.out.println("Time: " + (System.currentTimeMillis() - startTime)); //Displays time spent in the copy operation
+            } /*Exception handling*/ catch (FileNotFoundException fnfe) 
+            {
+                System.err.println("File was not found IN MANI2");
+            } /*Always closes the streams after the try*/ finally //Closes the input and output stream
+            {
+                if (input != null) //Checks to see if there's an input stream
+                {
+                    input.close();//Closes the input and output stream
+                }
+                if (output != null) //Checks to see if there's an output stream
+                {
+                    output.close();//Closes the input and output stream
+                }
+            }
+            System.out.println("Done");
+//        }
+    }
+    
+    
 
     /** Função de atualização de arquivo no repositório local
     * @param enderecoNovo - Arquivo do tipo file a ser colocado no lugar da velha
