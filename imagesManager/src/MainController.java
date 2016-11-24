@@ -162,10 +162,14 @@ public class MainController implements Initializable {
     
         public void popCombo2(ActionEvent listComboData){
         ArrayList<String> nomesImagens = new ArrayList<String>();
-        ArrayList<Imagem> arImagens = bancoDados.getAllImages();
+        int idAlb = bancoDados.getAlbumByTitle(combo1.getValue()).get(0).getId();
+        System.out.println(idAlb);
+        ArrayList<Imagem> arImagens = bancoDados.getImageByAlbumId(idAlb);
         
-        for(int i = 0; i < arImagens.size(); i++){
+        for(int i = 0; i < arImagens.size(); i++)
+        {
             nomesImagens.add(arImagens.get(i).getTitle());
+            System.out.println(nomesImagens.get(i));
         }
 
         ObservableList<String> comboData = FXCollections.observableArrayList(nomesImagens);
@@ -194,7 +198,7 @@ public class MainController implements Initializable {
                 imgOrigem = bancoDados.getAllImages().get(i); // Recebe o objeto Imagem da imagem selecionada pelo if
             }
         }
-        */imgOrigem = bancoDados.getAllImages().get(0); // Recebe o objeto Imagem da imagem selecionada pelo if
+        */imgOrigem = bancoDados.getImageByTitle(combo2.getValue()).get(0); // Recebe o objeto Imagem da imagem selecionada pelo if
         String endOrigem = imgOrigem.getPath(); //Null pointer não sei porque...
         String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
         File origem = new File(endOrigem); //receives the file destination from the argument lines
