@@ -187,13 +187,14 @@ public class MainController implements Initializable {
     public void exportImage(ActionEvent listData) throws IOException
     {
         Imagem imgOrigem = null; // Inicializa uma instancia de Imagem
-        for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
+       /* for(int i = 0; i < bancoDados.getAllImages().size(); i++) // Percorre todas as imagens para usar a imagem selecionada
         {
             if (combo2.getValue().equals(bancoDados.getAllImages().get(i).getTitle())); // para na com titulo igual
             {
                 imgOrigem = bancoDados.getAllImages().get(i); // Recebe o objeto Imagem da imagem selecionada pelo if
             }
-        }    
+        }
+        */imgOrigem = bancoDados.getAllImages().get(0); // Recebe o objeto Imagem da imagem selecionada pelo if
         String endOrigem = imgOrigem.getPath(); //Null pointer não sei porque...
         String destino = txtImagePath.getText(); // Pega o local destino da imagem por caminho absoluto
         File origem = new File(endOrigem); //receives the file destination from the argument lines

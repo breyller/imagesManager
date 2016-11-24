@@ -81,7 +81,8 @@ public class ManipuladorArquivos implements IPersistencia{
 
         /*Receives and checks files and destinations*/
         File source = origem; //receives the file from the argument lines
-        File dest = new File(enderecoLocal); //receives the file destination from the argument lines
+        System.out.println(directory+nome);
+        File dest = new File(directory+enderecoLocal); //receives the file destination from the argument lines
 
         //Compares if the images are equal (should be changed later to compare to ALL images on the folder
 //        Path caminho1 = Paths.get(origem.getAbsolutePath());
