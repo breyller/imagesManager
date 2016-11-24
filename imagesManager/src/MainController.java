@@ -372,25 +372,9 @@ public class MainController implements Initializable {
         int imgId = 0;
         Imagem imgInserida = new Imagem(imgDesc, imgTitle, imgPath, imgHash, imgId);
         boolean verifica = mani.setImage(imgInserida);
+        boolean imgIsSet = false;
         if(verifica){
-            boolean imgIsSet = false;
             bdSet = bancoDados.setImage(imgInserida);
-            imgInserida.setId(bancoDados.getLastId("fotos"));
-            //poe a imagem no album selecionado
-            if (combo3.getValue() != null){
-                int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
-                imgIsSet = bancoDados.setImageOnAlbum(imgInserida.getId(), albId); //Coloca a imagem no album selecionado
-                if (imgIsSet == false){
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Informação");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Falha na insercao de imagem no album");
-                    alert.showAndWait();
-                    return;
-                }
-            }
-        }
-        else{
             if(bdSet){
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Informação");
@@ -411,6 +395,20 @@ public class MainController implements Initializable {
                 txtImageName.setText("");
                 txtImageDesc.setText("");           
                 return;
+            }
+            imgInserida.setId(bancoDados.getLastId("fotos"));
+            //poe a imagem no album selecionado
+            if (combo3.getValue() != null){
+                int albId = bancoDados.getAlbumByTitle(combo3.getValue()).get(0).getId(); //Recebe o ID do album selecionado
+                imgIsSet = bancoDados.setImageOnAlbum(imgInserida.getId(), albId); //Coloca a imagem no album selecionado
+                if (imgIsSet == false){
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Informação");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Falha na insercao de imagem no album");
+                    alert.showAndWait();
+                    return;
+                }
             }
         }
     }
